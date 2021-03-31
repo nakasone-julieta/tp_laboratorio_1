@@ -127,13 +127,11 @@ int utn_imprimirArray(int array[], int len)
 	return retornoFuncion;
 }
 
-int utn_promediarArray(int array[], int len)//calcular promedio de los valores de Array
+int utn_promediarArray(float* pResultado, int array[], int len)//calcular promedio de los valores de Array
 {
 	int i;
 	int retornoFuncion = -1;
 	int acumuladorArray=0;
-	float promedioArray;
-
 
 	if (array != NULL && len >= 0)
 		{
@@ -143,10 +141,28 @@ int utn_promediarArray(int array[], int len)//calcular promedio de los valores d
 				acumuladorArray=acumuladorArray+array[i];
 			}
 		}
-
-	promedioArray=acumuladorArray/len;
+	*pResultado=(float)acumuladorArray/len;
 	return retornoFuncion;
 }
+/*int utn_imprimirPromedioArrayArray(float* pResultado, int array[], int len)//calcular promedio de los valores de Array
+{
+	int i;
+	int retornoFuncion = -1;
+	int acumuladorArray=0;
+	float promedioArray;
+
+	if (array != NULL && len >= 0)
+		{
+			for (i=0; i<len; i++)
+			{
+				retornoFuncion = 0;
+				acumuladorArray=acumuladorArray+array[i];
+			}
+		}
+	promedioArray=(float)acumuladorArray/len;
+	printf("%f", promedioArray);
+	return retornoFuncion;
+}*/
 
 
 
