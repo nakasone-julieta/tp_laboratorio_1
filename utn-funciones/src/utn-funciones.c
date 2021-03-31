@@ -22,9 +22,11 @@ int main(void)
 {
 	int edad;
 	int edades[EDADES_SIZE];
+	//float promedio;
 	int i;
-
 	printf("vamos a llenar un array con %d edades.\n", EDADES_SIZE);
+
+
 	for(i=0; i<EDADES_SIZE; i++)
 	{
 		if (utn_getInt(&edad, "Ingrese edad: ", "ingrese un valor correcto\n", 0, 110, 3)==0)
@@ -37,7 +39,8 @@ int main(void)
 		}
 	}
 	printf ("las edades ingresadas son: \n");
-	utn_imprimirArray(edades, EDADES_SIZE);
+	utn_promediarArray(edades, EDADES_SIZE);
+
 }
 
 

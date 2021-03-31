@@ -112,20 +112,41 @@ int utn_getChar (char* pCaracter, char* pMensaje, char* pMensajeError, char min,
 		return retornoFuncion;
 }
 
-void utn_imprimirArray(int array[], int len)
+int utn_imprimirArray(int array[], int len)
 {
 	int i;
-	for (i=0; i<len; i++)
+	int retornoFuncion = -1;
+	if (array != NULL && len >= 0)
 	{
-		printf ("%d ", array[i]);
+		for (i=0; i<len; i++)
+		{
+			retornoFuncion = 0;
+			printf ("%d ", array[i]);
+		}
 	}
+	return retornoFuncion;
 }
 
-/*int utn_promedioArray(int array[], int len)//calcular promedio de los valores de Array
+int utn_promediarArray(int array[], int len)//calcular promedio de los valores de Array
 {
+	int i;
+	int retornoFuncion = -1;
+	int acumuladorArray=0;
+	float promedioArray;
 
-}*/
 
-//prueba de función para recibir datos en array
+	if (array != NULL && len >= 0)
+		{
+			for (i=0; i<len; i++)
+			{
+				retornoFuncion = 0;
+				acumuladorArray=acumuladorArray+array[i];
+			}
+		}
+
+	promedioArray=acumuladorArray/len;
+	return retornoFuncion;
+}
+
 
 
