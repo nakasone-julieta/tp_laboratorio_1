@@ -7,86 +7,86 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdio_ext.h>//siempre en linux
+#include <stdio_ext.h>//siempre en linux************
 #include "utn.h"
 
-int utn_getInt(int *pNum,char*pTexto,char*pError, int minimo, int maximo,int reintento)
+int utn_getInt(int *pNumero,char*pMensaje,char*pMensajeError, int min, int max,int reintentos)
 {
-	int retornoFuncion = -1;
+	int retornoFuncion = -1; //ERROR alguno de los parámetros no verifica: esto sería un problema de la persona que llamó a la función?
 	int bufferInt;
 
-	for (int i= reintento; i >= 0; i --)
+	for (int i= reintentos; i >= 0; i --)
 	{
-		if (pNum != NULL && pTexto != NULL && pError != NULL && minimo <= maximo && reintento >= 0 )
+		if (pNumero != NULL && pMensaje != NULL && pMensajeError != NULL && min <= max && reintentos >= 0 )
 		{
-			retornoFuncion = -2; //otro tipo de error
-
-			printf ("%s", pTexto);//NO SE PUEDE COLAR INFO PROPIA !! Se imprime tal cual me lo mandan
+			retornoFuncion = -2; //otro tipo de error: bufferInt no se encuentra dentro del rango establecido ÉSTO SERÍA IGUAL SI ESTUVIERA EN EL ELSE?
+			printf ("%s", pMensaje);//**********NO SE PUEDE COLAR INFO PROPIA !! Se imprime tal cual me lo mandan
 			__fpurge(stdin);
 			scanf("%d",&bufferInt);
-			if (bufferInt>= minimo && bufferInt<= maximo)
+			if (bufferInt>= min && bufferInt<= max)
 			{
-				*pNum = bufferInt;
+				*pNumero = bufferInt;
 				retornoFuncion =0;
-				break; //salgo de la iteración del DO para llegar directamente al return (en este caso)
+				break; //***************salgo de la iteración del DO para llegar directamente al return (en este caso)
 			}
 			else
 			{
-				printf ("%s", pError);
-				reintento --; //si entra, la variable int reinteno (con su valor del main) desciende en 1
+				retornoFuncion = -3;
+				printf ("%s", pMensajeError);
+				reintentos --; //*************si entra, la variable int reinteno (con su valor del main) desciende en 1
 			}
 		}
 		else
 		{
-			printf ("%s", pError);
-			reintento --;
+			printf ("%s", pMensajeError);
+			reintentos --;
 		}
 	}
 	return retornoFuncion;
 }
 
-int utn_getFloat(float *pDecimal,char*pTexto,char*pError, float minimo, float maximo,int reintento)
+int utn_getFloat(float *pDecimal,char*pMensaje,char*pMensajeError, float min, float max,int reintentos)
 {
 	int retornoFuncion = -1;
 	float bufferFloat;
 
-	for (int i= reintento; i >= 0; i --)
+	for (int i= reintentos; i >= 0; i --)
 	{
-		if (pDecimal != NULL && pTexto != NULL && pError != NULL && minimo <= maximo && reintento >= 0 )
+		if (pDecimal != NULL && pMensaje != NULL && pMensajeError != NULL && min <= max && reintentos >= 0 )
 		{
-			printf ("%s", pTexto);
+			printf ("%s", pMensaje);
 			__fpurge(stdin);
 			scanf("%f",&bufferFloat);
-			if (bufferFloat>= minimo && bufferFloat<= maximo)
+			if (bufferFloat>= min && bufferFloat<= max)
 			{
 				*pDecimal = bufferFloat;
 				retornoFuncion =0;
-				break; //salgo de la iteración del DO para llegar directamente al return (en este caso)
+				break;
 			}
 			else
 			{
-				printf ("%s", pError);
-				reintento --; //si entra, la variable int reinteno (con su valor del main) desciende en 1
+				printf ("%s", pMensajeError);
+				reintentos --;
 			}
 		}
 		else
 		{
-			printf ("%s", pError);
-			reintento --;
+			printf ("%s", pMensajeError);
+			reintentos --;
 		}
 	}
 	return retornoFuncion;
 }
 
-int utn_getChar (char* pCaracter, char* pTexto, char* pError, char min, char max, int reintentos)
+int utn_getChar (char* pCaracter, char* pMensaje, char* pMensajeError, char min, char max, int reintentos)
 {
 	int retornoFuncion = -1;
 	char bufferChar;
-	if (pCaracter != NULL && pTexto != NULL && pError != NULL && min <= max && reintentos >= 0 )
+	if (pCaracter != NULL && pMensaje != NULL && pMensajeError != NULL && min <= max && reintentos >= 0 )
 	{
 		for (int i= reintentos; i >= 0; i --)
 		{
-			printf ("%s", pTexto);
+			printf ("%s", pMensaje);
 			__fpurge(stdin);
 			scanf("%c",&bufferChar);
 			if (bufferChar>= min && bufferChar<= max)
@@ -97,14 +97,14 @@ int utn_getChar (char* pCaracter, char* pTexto, char* pError, char min, char max
 			}
 			else
 			{
-				printf ("%s", pError);
+				printf ("%s", pMensajeError);
 				reintentos --; //si entra, la variable int reinteno (con su valor del main) desciende en 1
 			}
 		}
 	}
 	else
 	{
-		printf ("%s", pError);
+		printf ("%s", pMensajeError);
 		reintentos --;
 	}
 

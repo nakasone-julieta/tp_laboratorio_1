@@ -21,6 +21,9 @@
 
 int main(void)
 {
+	/*int numero;
+
+	utn_getInt(pNum, pTexto, pError, minimo, maximo, reintento)
 	int numero;
 	char caracter;
 	float decimal;
@@ -38,7 +41,7 @@ int main(void)
 	if (utn_getFloat(&decimal, "\n\ningrese numero flotante:", "fuera de rango", 0, 99.9, 3)==0)
 	{
 		printf("\ningresaste %f", decimal);
-	}
+	}*/
 
 }
 
