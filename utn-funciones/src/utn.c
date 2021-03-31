@@ -15,9 +15,9 @@ int utn_getInt(int *pNumero,char*pMensaje,char*pMensajeError, int min, int max,i
 	int retornoFuncion = -1; //ERROR alguno de los parámetros no verifica: esto sería un problema de la persona que llamó a la función?
 	int bufferInt;
 
-	for (int i= reintentos; i >= 0; i --)
+	if (pNumero != NULL && pMensaje != NULL && pMensajeError != NULL && min <= max && reintentos >= 0 )
 	{
-		if (pNumero != NULL && pMensaje != NULL && pMensajeError != NULL && min <= max && reintentos >= 0 )
+		for (int i= reintentos; i >= 0; i --)
 		{
 			retornoFuncion = -2; //otro tipo de error: bufferInt no se encuentra dentro del rango establecido ÉSTO SERÍA IGUAL SI ESTUVIERA EN EL ELSE?
 			printf ("%s", pMensaje);//**********NO SE PUEDE COLAR INFO PROPIA !! Se imprime tal cual me lo mandan
@@ -36,11 +36,11 @@ int utn_getInt(int *pNumero,char*pMensaje,char*pMensajeError, int min, int max,i
 				reintentos --; //*************si entra, la variable int reinteno (con su valor del main) desciende en 1
 			}
 		}
-		else
-		{
-			printf ("%s", pMensajeError);
-			reintentos --;
-		}
+	}
+	else
+	{
+		printf ("%s", pMensajeError);
+		reintentos --;
 	}
 	return retornoFuncion;
 }
@@ -50,9 +50,9 @@ int utn_getFloat(float *pDecimal,char*pMensaje,char*pMensajeError, float min, fl
 	int retornoFuncion = -1;
 	float bufferFloat;
 
-	for (int i= reintentos; i >= 0; i --)
+	if (pDecimal != NULL && pMensaje != NULL && pMensajeError != NULL && min <= max && reintentos >= 0 )
 	{
-		if (pDecimal != NULL && pMensaje != NULL && pMensajeError != NULL && min <= max && reintentos >= 0 )
+		for (int i= reintentos; i >= 0; i --)
 		{
 			printf ("%s", pMensaje);
 			__fpurge(stdin);
@@ -69,12 +69,13 @@ int utn_getFloat(float *pDecimal,char*pMensaje,char*pMensajeError, float min, fl
 				reintentos --;
 			}
 		}
-		else
-		{
-			printf ("%s", pMensajeError);
-			reintentos --;
-		}
 	}
+	else
+	{
+		printf ("%s", pMensajeError);
+		reintentos --;
+	}
+
 	return retornoFuncion;
 }
 
