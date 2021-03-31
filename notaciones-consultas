@@ -1,3 +1,43 @@
+/*****************************
+  QUE HACE ESTO??
+	int numeros[7];
+	int i;
+
+	for (i=0; i<7; i++)
+	{
+		numeros[i]=5;
+	}
+
+	printf("%d ", numeros[i]);
+***********************************/
+
+
+/*/////////////////////////////////////////////
+	int numero;
+	char caracter;
+	float decimal;
+
+	if (utn_getInt(&numero, "\n\ningrese edad:", "fuera de rango", 0, 99, 3)==0)//se puede usar máscara para agregar el rango?
+	{
+		printf("\ningresaste %d", numero);
+	}
+
+	if (utn_getChar(&caracter, "\n\ningrese caracter:", "dato no válido", 'A', 'J', 3)==0)
+	{
+		printf("\ningresaste %c", caracter);
+	}
+
+	if (utn_getFloat(&decimal, "\n\ningrese numero flotante:", "fuera de rango", 0, 99.9, 3)==0)
+	{
+		printf("\ningresaste %f", decimal);
+	}
+////////////////////////////////////////////////////*/
+
+//hasta acá son los cambios en 30/03
+
+
+
+
 #include <stdio_ext.h>//siempre en linux
 #include "utn.h"
 

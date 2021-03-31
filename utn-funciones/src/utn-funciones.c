@@ -14,36 +14,33 @@
 //__fpurge(stdin) para limpiar el buffer, antes de llamar al scanf
 #include "utn.h" //para mis  bibliotecas usamos comillas. LO USAMOS EN EL C
 
+/******************************************************/
 
-
-
-
-
+#define EDADESSIZE 5
 int main(void)
 {
-	/*int numero;
+	int edad;
+	int edades[EDADESSIZE];
+	int i;
 
-	utn_getInt(pNum, pTexto, pError, minimo, maximo, reintento)
-	int numero;
-	char caracter;
-	float decimal;
-
-	if (utn_getInt(&numero, "\n\ningrese edad:", "fuera de rango", 0, 99, 3)==0)//se puede usar máscara para agregar el rango?
+	for(i=0; i<EDADESSIZE; i++)
 	{
-		printf("\ningresaste %d", numero);
+		if (utn_getInt(&edad, "ingrese edad:", "ingrese un valor correcto\n", 0, 110, 3)==0)
+		{
+			edades[i] = edad;
+		}
+		else
+		{
+			printf("Usted no está ingresando un valor correcto en la edad\n");
+		}
 	}
-
-	if (utn_getChar(&caracter, "\n\ningrese caracter:", "dato no válido", 'A', 'J', 3)==0)
+	for (i=0; i<EDADESSIZE; i++)
 	{
-		printf("\ningresaste %c", caracter);
+		printf ("%d ", edades[i]);
 	}
-
-	if (utn_getFloat(&decimal, "\n\ningrese numero flotante:", "fuera de rango", 0, 99.9, 3)==0)
-	{
-		printf("\ningresaste %f", decimal);
-	}*/
-
 }
+
+
 
 
 
