@@ -16,7 +16,7 @@
 
 /******************************************************/
 
-#define EDADES_SIZE 2
+#define EDADES_SIZE 5
 
 int main(void)
 {
@@ -24,9 +24,10 @@ int main(void)
 	int edades[EDADES_SIZE];
 	int i;
 
+	printf("vamos a llenar un array con %d edades.\n", EDADES_SIZE);
 	for(i=0; i<EDADES_SIZE; i++)
 	{
-		if (utn_getInt(&edad, "ingrese edad:", "ingrese un valor correcto\n", 0, 110, 3)==0)
+		if (utn_getInt(&edad, "Ingrese edad: ", "ingrese un valor correcto\n", 0, 110, 3)==0)
 		{
 			edades[i] = edad;
 		}
@@ -35,6 +36,7 @@ int main(void)
 			printf("Usted no está ingresando un valor correcto en la edad\n");
 		}
 	}
+	printf ("las edades ingresadas son: \n");
 	utn_imprimirArray(edades, EDADES_SIZE);
 }
 

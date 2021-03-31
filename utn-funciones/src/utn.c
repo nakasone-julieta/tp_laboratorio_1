@@ -117,7 +117,15 @@ void utn_imprimirArray(int array[], int len)
 	int i;
 	for (i=0; i<len; i++)
 	{
-		printf ("%d ", array[1]);
+		printf ("%d ", array[i]);
 	}
 }
+
+/*int utn_promedioArray(int array[], int len)//calcular promedio de los valores de Array
+{
+
+}*/
+
+//prueba de función para recibir datos en array
+
 
