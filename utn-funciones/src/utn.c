@@ -112,4 +112,12 @@ int utn_getChar (char* pCaracter, char* pMensaje, char* pMensajeError, char min,
 		return retornoFuncion;
 }
 
+void utn_imprimirArray(int array[], int len)
+{
+	int i;
+	for (i=0; i<len; i++)
+	{
+		printf ("%d ", array[1]);
+	}
+}
 

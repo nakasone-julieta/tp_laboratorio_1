@@ -11,4 +11,6 @@
 int utn_getInt (int* pNumero, char* pMensaje, char* pMensajeError,int min, int max, int reintentos);
 int utn_getFloat(float *pDecimal,char*pMensaje,char*pMensajeError, float min, float max,int reintentos);
 int utn_getChar(char* pCaracter, char* pMensaje, char* pMensajeError,char min, char max, int reintentos);
+
+void utn_imprimirArray(int array[], int len);
 #endif /* UTN_H_ */
