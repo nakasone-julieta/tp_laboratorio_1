@@ -1,3 +1,12 @@
+/****************************************************************************************
+-cómo se escribe cuando una función tiene espacio para argumento, pero no tengo nada qué pasarle. Ejemplo: 
+//------>utn_getChar(&signo, "ingrese el signo de la operación que desea realizar [* / - + %]",
+//------>			"ERROR. Por favor ingresar un signo válido", , , 3);
+
+- en la misma función: por qué me marca syntaxis error y add break point? :(
+
+//////////////////////////////PREGUNTAS SOBRE EL TP///////////////////////////////*/
+
 /*****************************
   QUE HACE ESTO??
 	int numeros[7];

@@ -10,6 +10,54 @@
 #include <stdio_ext.h>//siempre en linux************
 #include "utn.h"
 
+
+float dividir (float* pResultado, float dividendo, float divisor)
+{
+	float division;
+	int retorno = -1;
+	if(pResultado!= NULL && divisor != 0)
+	{
+		division = (float)dividendo/divisor;
+		*pResultado=division;
+		retorno = 0;
+	}
+	return retorno;
+}
+
+float multiplicar (float* pResultado, float factor1, float factor2)
+{
+	//float producto;
+	int retorno = -1;
+	if (pResultado != NULL)  // como valido los numeros? con isNaN??
+	{
+		*pResultado = (float)factor1*factor2;
+		retorno =  0;
+	}
+	return retorno;
+}
+
+float sumar (float* pResultado, float sumando1, float sumando2)
+{
+	int retorno = -1;
+	if (pResultado != NULL)  // como valido los numeros? con isNaN??
+	{
+		*pResultado = (float)sumando1+sumando2;
+		retorno =  0;
+	}
+	return retorno;
+}
+
+float restar (float* pResultado, float minuendo, float sustraendo)
+{
+	int retorno = -1;
+	if (pResultado != NULL)  // como valido los numeros? con isNaN??
+	{
+		*pResultado = (float)minuendo-sustraendo;
+		retorno =  0;
+	}
+	return retorno;
+}
+
 int utn_getInt(int *pNumero,char*pMensaje,char*pMensajeError, int min, int max,int reintentos)
 {
 	int retornoFuncion = -1; //ERROR alguno de los parámetros no verifica: esto sería un problema de la persona que llamó a la función?
@@ -144,25 +192,7 @@ int utn_promediarArray(float* pResultado, int array[], int len)//calcular promed
 	*pResultado=(float)acumuladorArray/len;
 	return retornoFuncion;
 }
-/*int utn_imprimirPromedioArrayArray(float* pResultado, int array[], int len)//calcular promedio de los valores de Array
-{
-	int i;
-	int retornoFuncion = -1;
-	int acumuladorArray=0;
-	float promedioArray;
 
-	if (array != NULL && len >= 0)
-		{
-			for (i=0; i<len; i++)
-			{
-				retornoFuncion = 0;
-				acumuladorArray=acumuladorArray+array[i];
-			}
-		}
-	promedioArray=(float)acumuladorArray/len;
-	printf("%f", promedioArray);
-	return retornoFuncion;
-}*/
 
 
 

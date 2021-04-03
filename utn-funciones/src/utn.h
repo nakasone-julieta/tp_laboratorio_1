@@ -8,6 +8,11 @@
 #ifndef UTN_H_
 #define UTN_H_
 
+float restar (float* pResultado, float minuendo, float sustraendo);
+float sumar (float* pResultado, float sumando1, float sumando2);
+float multiplicar (float* pResultado, float factor1, float factor2);
+float dividir (float* pResultado, float dividendo, float divisor);
+
 int utn_getInt (int* pNumero, char* pMensaje, char* pMensajeError,int min, int max, int reintentos);
 int utn_getFloat(float *pDecimal,char*pMensaje,char*pMensajeError, float min, float max,int reintentos);
 int utn_getChar(char* pCaracter, char* pMensaje, char* pMensajeError,char min, char max, int reintentos);
