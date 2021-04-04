@@ -28,7 +28,7 @@ float multiplicar (float* pResultado, float factor1, float factor2)
 {
 	//float producto;
 	int retorno = -1;
-	if (pResultado != NULL)  // como valido los numeros? con isNaN??
+	if (pResultado != NULL)
 	{
 		*pResultado = (float)factor1*factor2;
 		retorno =  0;
@@ -39,7 +39,7 @@ float multiplicar (float* pResultado, float factor1, float factor2)
 float sumar (float* pResultado, float sumando1, float sumando2)
 {
 	int retorno = -1;
-	if (pResultado != NULL)  // como valido los numeros? con isNaN??
+	if (pResultado != NULL)
 	{
 		*pResultado = (float)sumando1+sumando2;
 		retorno =  0;
@@ -50,7 +50,7 @@ float sumar (float* pResultado, float sumando1, float sumando2)
 float restar (float* pResultado, float minuendo, float sustraendo)
 {
 	int retorno = -1;
-	if (pResultado != NULL)  // como valido los numeros? con isNaN??
+	if (pResultado != NULL)
 	{
 		*pResultado = (float)minuendo-sustraendo;
 		retorno =  0;

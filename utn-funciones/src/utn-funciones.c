@@ -41,7 +41,7 @@ int main(void)
 	printf ("promedio de las edades ingresadas son: \n");
 	if (utn_promediarArray(&promedio, edades, EDADES_SIZE)==0)
 	{
-		printf("%f", promedio);
+		printf("%.2f", promedio);
 	}
 
 }
