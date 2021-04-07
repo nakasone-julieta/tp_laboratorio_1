@@ -38,15 +38,15 @@ int main(void)
 
 	utn_getInt(&numeroA, "ingrese el primer número", "ERROR. Por favor ingrese un dato válido entre -100 y 100",
 			-100, 100, 3);
-	utn_getInt(&numeroA, "ingrese el primer número", "ERROR. Por favor ingrese un dato válido entre -100 y 100",
+	utn_getInt(&numeroA, "ingrese el segundo número", "ERROR. Por favor ingrese un dato válido entre -100 y 100",
 			-100, 100, 3);
 	utn_getChar(&signo, "ingrese el signo de la operación que desea realizar [* / - + %]",
-			"ERROR. Por favor ingresar un signo válido", , , 3);
+			"ERROR. Por favor ingresar un signo válido", , , );
 	if (signo != '*' && signo !='/' && signo != '-' && signo != '+')
 	{
 		printf("ERROR. Por favor ingresar un signo válido");
 		utn_getChar(&signo, "ingrese el signo de la operación que desea realizar [* / - + %]",
-					"ERROR. Por favor ingresar un signo válido", , , 3);
+				"ERROR. Por favor ingresar un signo válido", , , );
 	}
 	utn_getInt(&numeroB, "ingrese el segundo número", "ERROR. Por favor ingrese un dato válido entre -100 y 100",
 			-100, 100, 3);

@@ -16,15 +16,15 @@
 
 int main(void)
 {
-	int numeros[PEDIR_NUM];
-	int unNumero;
-	int elMinimo;
-	int indiceDelMinimo;
-	int aux;
-	int i;
+	int numeros[PEDIR_NUM] = {6,7,10,2,8};
+	//int unNumero;
+	//int elMinimo;
+	//int indiceDelMinimo;
+	//int aux;
+	//int i;
 	//int iIndice;
 
-	for (i=0; i<PEDIR_NUM; i++)
+	/*for (i=0; i<PEDIR_NUM; i++)
 	{
 		utn_getInt(&unNumero, "ingrese un numero", "su numero no sirve [min0, max30]", 0, 30, 2);
 		numeros[i]= unNumero;
@@ -33,18 +33,19 @@ int main(void)
 	{
 		if (i==0 || i!= indiceDelMinimo)
 		{
-			if (utn_buscarIndiceDelMinimoArrayInt(&numeros, PEDIR_NUM, &indiceDelMinimo)==0)
-				{
-					aux=indiceDelMinimo;
-				}
-			if (utn_buscarMinimoArrayInt(&numeros, PEDIR_NUM, elMinimo)==0)
+			if (utn_buscarIndiceDelMinimoArrayInt(&numeros, PEDIR_NUM, &indiceDelMinimo)==0 && utn_buscarMinimoArrayInt(&numeros, PEDIR_NUM, elMinimo)==0)
 			{
-				i=elMinimo;//como hago para guardar el valor de elMinimo en un INDICE. Porque si hago i=elMinimo, estoy sobreescribiendo la i,pero no el valor que guarda???
-				//indiceDelMin=aux
+				aux=numeros[i];
+				numeros[i]=elMinimo;
+				indiceDelMinimo=aux;
 			}
 		}
-	}
-
+	}*/
+	//if (==0)
+	//{
+		utn_imprimirArray(numeros, PEDIR_NUM);
+		printf("el array ordenado es: %s", numeros);
+	//}
 
 }
 

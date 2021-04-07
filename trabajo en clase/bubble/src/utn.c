@@ -10,21 +10,21 @@
 #include <stdio_ext.h>//siempre en linux************
 #include "utn.h"
 
-///////////////////////////////operaciones simples
-int utn_dividirFloat (float* pResultado, float dividendo, float divisor)
+
+/*float dividir (float* pResultado, int dividendo, int divisor)
 {
 	float division;
 	int retorno = -1;
 	if(pResultado!= NULL && divisor != 0)
 	{
-		division = dividendo/divisor;
+		division = (float)dividendo/divisor;
 		*pResultado=division;
 		retorno = 0;
 	}
 	return retorno;
-}
+}*/
 
-int utn_multiplicarFloat (float* pResultado, float factor1, float factor2)
+float multiplicar (float* pResultado, float factor1, float factor2)
 {
 	//float producto;
 	int retorno = -1;
@@ -36,7 +36,7 @@ int utn_multiplicarFloat (float* pResultado, float factor1, float factor2)
 	return retorno;
 }
 
-int utn_sumarFloat (float* pResultado, float sumando1, float sumando2)
+float sumar (float* pResultado, float sumando1, float sumando2)
 {
 	int retorno = -1;
 	if (pResultado != NULL)
@@ -47,7 +47,7 @@ int utn_sumarFloat (float* pResultado, float sumando1, float sumando2)
 	return retorno;
 }
 
-int utn_restarFloat (float* pResultado, float minuendo, float sustraendo)
+float restar (float* pResultado, float minuendo, float sustraendo)
 {
 	int retorno = -1;
 	if (pResultado != NULL)
@@ -57,8 +57,6 @@ int utn_restarFloat (float* pResultado, float minuendo, float sustraendo)
 	}
 	return retorno;
 }
-
-///////////////////////////////interaccion con usuario
 
 int utn_getInt(int *pNumero,char*pMensaje,char*pMensajeError, int min, int max,int reintentos)
 {
@@ -162,8 +160,6 @@ int utn_getChar (char* pCaracter, char* pMensaje, char* pMensajeError, char min,
 		return retornoFuncion;
 }
 
-
-///////////////////////////////operaciones con array
 int utn_imprimirArray(int array[], int len)
 {
 	int i;
@@ -197,23 +193,6 @@ int utn_promediarArray(float* pResultado, int array[], int len)//calcular promed
 	return retornoFuncion;
 }
 
-int utn_sumarArray(float* pResultado, int array[], int len)//calcular la suma de los elementos del array
-{
-	int i;
-	int retornoFuncion = -1;
-	int acumuladorArray=0;
-
-	if (array != NULL && len >= 0)
-		{
-			for (i=0; i<len; i++)
-			{
-				retornoFuncion = 0;
-				acumuladorArray=acumuladorArray+array[i];
-			}
-		}
-	*pResultado=acumuladorArray;
-	return retornoFuncion;
-}
 
 int utn_buscarMinimoArrayInt (int* pArray,int limite, int* pResultado)
 {
@@ -234,29 +213,6 @@ int utn_buscarMinimoArrayInt (int* pArray,int limite, int* pResultado)
         retorno=0;
     }
     *pResultado=minimo;
-
-    return retorno;
-}
-
-int utn_buscarMaximoArrayInt (int* pArray,int limite, int* pResultado)
-{
-    int retorno=-1;
-    int maximo;
-    int i;
-    if(pArray !=NULL && limite>0 && pResultado !=NULL)
-    {
-    	maximo=pArray[0];
-
-    	for(i=1;i<limite;i++)
-    	{
-    		if(pArray[i]>maximo)
-    		{
-    			maximo=pArray[i];
-    		}
-    	}
-        retorno=0;
-    }
-    *pResultado=maximo;
 
     return retorno;
 }
