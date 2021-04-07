@@ -44,9 +44,11 @@ int main(void)
 	//if (==0)
 	//{
 		utn_imprimirArray(numeros, PEDIR_NUM);
-		printf("el array ordenado es: %s", numeros);
+		printf("\nel array es: %d", &numeros);
 	//}
 
 }
+
+
 
 
