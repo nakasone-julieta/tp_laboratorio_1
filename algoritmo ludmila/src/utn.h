@@ -11,7 +11,7 @@
 float restar (float* pResultado, float minuendo, float sustraendo);
 float sumar (float* pResultado, float sumando1, float sumando2);
 float multiplicar (float* pResultado, float factor1, float factor2);
-float dividir (float* pResultado, float dividendo, float divisor);
+//float dividir (float* pResultado, float dividendo, float divisor);
 
 int utn_getInt (int* pNumero, char* pMensaje, char* pMensajeError,int min, int max, int reintentos);
 int utn_getFloat(float *pDecimal,char*pMensaje,char*pMensajeError, float min, float max,int reintentos);
@@ -19,6 +19,5 @@ int utn_getChar(char* pCaracter, char* pMensaje, char* pMensajeError,char min, c
 
 int utn_imprimirArray(int array[], int len);
 int utn_promediarArray(float* pResultado, int array[], int len);
-int minimoArrayInt (int* array, int limiteContarArray , int resultado);
-
+int utn_buscarIndiceDelMinimoArrayInt (int* pArray,int limite, int* pResultadoIndice);
 #endif /* UTN_H_ */

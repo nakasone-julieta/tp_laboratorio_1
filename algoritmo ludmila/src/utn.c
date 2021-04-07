@@ -11,11 +11,10 @@
 #include "utn.h"
 
 
-float dividir (float* pResultado, float dividendo, float divisor)
+/*float dividir (float* pResultado, int dividendo, int divisor)
 {
 	float division;
 	int retorno = -1;
-
 	if(pResultado!= NULL && divisor != 0)
 	{
 		division = (float)dividendo/divisor;
@@ -23,7 +22,7 @@ float dividir (float* pResultado, float dividendo, float divisor)
 		retorno = 0;
 	}
 	return retorno;
-}
+}*/
 
 float multiplicar (float* pResultado, float factor1, float factor2)
 {
@@ -194,16 +193,54 @@ int utn_promediarArray(float* pResultado, int array[], int len)//calcular promed
 	return retornoFuncion;
 }
 
-int minimoArrayInt (int* array, int limiteContarArray , int resultado)
+
+int utn_buscarMinimoArrayInt (int* pArray,int limite, int* pResultado)
 {
-	if (array != NULL && limite>0 &&resultado!=NULL)
-	{
-		if (flag==1||maximoArray<array)
-		{
-			maximoArray=array;
-			flag=0;
-		}
-	}
+    int retorno=-1;
+    int minimo;
+    int i;
+    if(pArray !=NULL && limite>0 && pResultado !=NULL)
+    {
+    	minimo=pArray[0];
+
+    	for(i=1;i<limite;i++)
+    	{
+    		if(pArray[i]<minimo)
+    		{
+    			minimo=pArray[i];
+    		}
+    	}
+        retorno=0;
+    }
+    *pResultado=minimo;
+
+    return retorno;
 }
+
+int utn_buscarIndiceDelMinimoArrayInt (int* pArray,int limite, int* pResultadoIndice)
+{
+    int retorno=-1;
+    int minimo;
+    int indiceDeMinimo;
+    int i;
+    if(pArray !=NULL && limite>0 && pResultadoIndice !=NULL)
+    {
+    	minimo=pArray[0];
+
+    	for(i=1;i<limite;i++)
+    	{
+    		if(pArray[i]<minimo)
+    		{
+    			minimo=pArray[i];
+    			indiceDeMinimo = i;
+    		}
+    	}
+        retorno=0;
+    }
+    *pResultadoIndice=indiceDeMinimo;
+
+    return retorno;
+}
+
 
 
