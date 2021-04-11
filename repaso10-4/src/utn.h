@@ -23,5 +23,7 @@ int utn_sumarArray(float* pResultado, int array[], int len);
 int utn_buscarMinimoArrayInt (int array[],int limite, int* pResultado);
 int utn_buscarMaximoArrayInt (int* pArray,int limite, int* pResultado);
 int utn_buscarIndiceDelMinimoArrayInt (int* pArray,int limite, int* pResultadoIndice);
-int utn_validarQueSeaNumero(char texto[]);
+int utn_validarQueSeaNumeroArray(char texto[]);
+int utn_ordenarArrayAscendente( int array[], int limite);
+int utn_ordenarArrayDescendente( int array[], int limite);
 #endif /* UTN_H_ */

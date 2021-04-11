@@ -30,51 +30,40 @@ e) “El factorial de A es: r1 y El factorial de B es: r2”
 
 int main(void)
 {
-	int numeroA;
-	char signo;
-	int numeroB;
-	int retornoFuncion;
-	float resultado;
+	float numeroA;
+	float numeroB;
+	float resultadoDivision;
+	float resultadoMultiplicacion;
+	float resultadoSuma;
+	float resultadoResta;
+	float resultadoFactorial;
 
-	utn_getInt(&numeroA, "ingrese el primer número", "ERROR. Por favor ingrese un dato válido entre -100 y 100",
-			-100, 100, 3);
-	utn_getInt(&numeroA, "ingrese el segundo número", "ERROR. Por favor ingrese un dato válido entre -100 y 100",
-			-100, 100, 3);
-	utn_getChar(&signo, "ingrese el signo de la operación que desea realizar [* / - + %]",
-			"ERROR. Por favor ingresar un signo válido", , , );
-	if (signo != '*' && signo !='/' && signo != '-' && signo != '+')
+	utn_getFloat(&numeroA, "ingrese el primer número (puede ser positivo,negativo,decimal)", "ERROR. Por favor ingrese un dato válido entre -1000 y 1000",-1000, 1000, 3);
+	utn_getFloat(&numeroB, "ingrese el segundo número (puede ser positivo,negativo,decimal)", "ERROR. Por favor ingrese un dato válido entre -1000 y 1000",-1000, 1000, 3);
+
+
+	if (utn_dividirFloat(&resultadoDivision, numeroA, numeroB)==0)
 	{
-		printf("ERROR. Por favor ingresar un signo válido");
-		utn_getChar(&signo, "ingrese el signo de la operación que desea realizar [* / - + %]",
-				"ERROR. Por favor ingresar un signo válido", , , );
+		printf("\nEl resultado de %.2f/%.2f es: %.2f",numeroA, numeroB, resultadoDivision);
 	}
-	utn_getInt(&numeroB, "ingrese el segundo número", "ERROR. Por favor ingrese un dato válido entre -100 y 100",
-			-100, 100, 3);
-
-
-	switch (signo)
-		{
-			case '/':
-				retornoFuncion = dividir (&resultado, numeroA, numeroB);
-				break;
-			case '*':
-				retornoFuncion = multiplicar (&resultado, numeroA, numeroB);
-				break;
-			case '+':
-				retornoFuncion = sumar (&resultado, numeroA, numeroB);
-				break;
-			case '-':
-				retornoFuncion = restar (&resultado, numeroA, numeroB);
-				break;
-		}
-		if (retornoFuncion == 0)
-		{
-			printf("la operacion ha sido exitosa, \n el resultado de %d %c %d es %.2f",numeroA,signo,numeroB, resultado);
-		}
-		else
-		{
-			printf ("la operación no se realizó, se ha encontrado un error");
-		}
-
-
+	if (utn_multiplicarFloat(&resultadoMultiplicacion, numeroA, numeroB)==0)
+	{
+		printf("\nEl resultado de %.2f*%.2f es: %.2f", numeroA, numeroB, resultadoMultiplicacion);
+	}
+	if (utn_sumarFloat(&resultadoSuma, numeroA, numeroB)==0)
+	{
+		printf("\nEl resultado de %.2f+%.2f es: %.2f", numeroA, numeroB, resultadoSuma);
+	}
+	if (utn_restarFloat(&resultadoResta, numeroA, numeroB)==0)
+	{
+		printf("\nEl resultado de %.2f-%.2f es: %.2f", numeroA, numeroB, resultadoResta);
+	}
+	if (utn_factorialFloat(&resultadoFactorial, numeroA)==0)
+	{
+		printf("\nEl factorial de %.2f es: %.2f", numeroA, resultadoFactorial);
+	}
+	if (utn_factorialFloat(&resultadoFactorial, numeroB)==0)
+	{
+		printf("\nEl factorial de %.2f es: %.2f", numeroB, resultadoFactorial);
+	}
 }

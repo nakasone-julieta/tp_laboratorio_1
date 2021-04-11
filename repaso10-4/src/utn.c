@@ -15,20 +15,12 @@ int utn_dividirFloat (float* pResultado, float dividendo, float divisor)
 {
 	float division;
 	int retorno = -1;
-	if(pResultado!= NULL)
+	if(pResultado!= NULL && divisor != 0)
 	{
-		retorno = 0;
-		if (divisor != 0)
-		{
 		division = dividendo/divisor;
 		*pResultado=division;
-		}
-		else
-		{
-			printf("no se puede dividir en 0");
-		}
+		retorno = 0;
 	}
-
 	return retorno;
 }
 
@@ -64,37 +56,6 @@ int utn_restarFloat (float* pResultado, float minuendo, float sustraendo)
 		retorno =  0;
 	}
 	return retorno;
-}
-
-int utn_factorialFloat(float* pResultado, float numero)
-{
-	float multiplicar;
-	float aux=1;
-	int retorno = -1;
-	int i;
-		if (pResultado != NULL)
-		{
-			retorno = 0;
-			/*if (numero == 0 || numero == 1)
-			{
-				*pResultado = 1;
-			}
-			else
-			{*/
-				for (i=0; i<numero; i++)
-				{
-					multiplicar = aux * numero;
-					*pResultado = multiplicar * numero;
-
-					if (i<1)
-					{
-						aux=numero;
-					}
-
-				}
-			//}
-		}
-		return retorno;
 }
 
 ///////////////////////////////interaccion con usuario
@@ -200,39 +161,6 @@ int utn_getChar (char* pCaracter, char* pMensaje, char* pMensajeError, char min,
 
 		return retornoFuncion;
 }
-
-/*int utn_getSigno(char* pSigno, char* pMensaje, char* pMensajeError, char opcion1, char opcion2, char opcion3, char opcion4, int reintentos)
-{
-	int retornoFuncion = -1;
-	char bufferChar;
-	if (pSigno != NULL && pMensaje != NULL && opcion1 != NULL && opcion2 != NULL && opcion3 != NULL && opcion3 != NULL && opcion4 != NULL && reintentos >= 0 )
-	{
-		for (int i=reintentos; i >= 0; i --)
-		{
-			printf ("%s", pMensaje);
-			__fpurge(stdin);
-			scanf("%c",&bufferChar);
-			if (bufferChar == opcion1 || bufferChar==opcion2 || bufferChar==opcion3 || bufferChar== opcion4)
-			{
-				*pSigno = bufferChar;
-				retornoFuncion =0;
-				break; //salgo de la iteración del DO para llegar directamente al return (en este caso)
-			}
-			else
-			{
-				printf ("%s", pMensajeError);
-				reintentos --; //si entra, la variable int reinteno (con su valor del main) desciende en 1
-			}
-		}
-	}
-	else
-	{
-		printf ("%s", pMensajeError);
-		reintentos --;
-	}
-
-		return retornoFuncion;
-}*/
 
 
 ///////////////////////////////operaciones con array

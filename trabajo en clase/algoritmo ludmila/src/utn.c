@@ -215,20 +215,20 @@ int utn_sumarArray(float* pResultado, int array[], int len)//calcular la suma de
 	return retornoFuncion;
 }
 
-int utn_buscarMinimoArrayInt (int* pArray,int limite, int* pResultado)
+int utn_buscarMinimoArrayInt (int array[],int limite, int* pResultado)
 {
     int retorno=-1;
     int minimo;
     int i;
-    if(pArray !=NULL && limite>0 && pResultado !=NULL)
+    if(array !=NULL && limite>0 && pResultado !=NULL)
     {
-    	minimo=pArray[0];
+    	minimo=array[0];
 
     	for(i=1;i<limite;i++)
     	{
-    		if(pArray[i]<minimo)
+    		if(array[i]<minimo)
     		{
-    			minimo=pArray[i];
+    			minimo=array[i];
     		}
     	}
         retorno=0;
@@ -286,5 +286,24 @@ int utn_buscarIndiceDelMinimoArrayInt (int* pArray,int limite, int* pResultadoIn
     return retorno;
 }
 
+int utn_validarQueSeaNumero(char texto[])
+{
+	int retorno=-1;
+	int i=0;
 
+	if(texto!=NULL)
+	{
+		retorno=0; // sopongo que esta ok
+		while(texto[i]!='\0')
+		{
+			if(texto[i]<'0' || texto[i]>'9')
+			{
+				retorno=-1; // HAY UN ERROR
+				break; //dejo de leer (dejo de iterar)
+			}
+			i++;
+		}
+	}
+	return retorno;
+}
 
