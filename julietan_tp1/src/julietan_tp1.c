@@ -62,8 +62,17 @@ int main(void)
 	{
 		printf("\nEl factorial de %.2f es: %.2f", numeroA, resultadoFactorial);
 	}
+	else if (utn_factorialFloat(&resultadoFactorial, numeroA)==-2)
+	{
+		printf("\nno existe el factoral de %.2f porque es numero negativo :(", numeroA);
+	}
+
 	if (utn_factorialFloat(&resultadoFactorial, numeroB)==0)
 	{
 		printf("\nEl factorial de %.2f es: %.2f", numeroB, resultadoFactorial);
+	}
+	else if (utn_factorialFloat(&resultadoFactorial, numeroB)==-2)
+	{
+		printf("\nno existe el factoral de %.2f porque es numero negativo :(", numeroB);
 	}
 }
