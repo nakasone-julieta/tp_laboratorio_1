@@ -36,7 +36,7 @@ int main(void)
 		numeros[i]= unNumero;
 
 	}
-	if (utn_buscarMinimoArrayInt(numeros, PEDIR_NUM, &elMinimo)==0)
+	if (utn_buscarMaximoArrayInt(numeros, PEDIR_NUM, &elMinimo)==0)
 			{
 				utn_imprimirArray(numeros, PEDIR_NUM);
 				printf("el minimo es: %d", elMinimo);

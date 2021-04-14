@@ -38,41 +38,65 @@ int main(void)
 	float resultadoResta;
 	float resultadoFactorial;
 
-	utn_getFloat(&numeroA, "ingrese el primer número (puede ser positivo,negativo,decimal)", "ERROR. Por favor ingrese un dato válido entre -1000 y 1000",-1000, 1000, 3);
-	utn_getFloat(&numeroB, "ingrese el segundo número (puede ser positivo,negativo,decimal)", "ERROR. Por favor ingrese un dato válido entre -1000 y 1000",-1000, 1000, 3);
+	if(utn_getFloat(&numeroA, "ingrese el primer número (puede ser positivo,negativo,decimal)",
+							  "ERROR. Por favor ingrese un dato válido entre -1000 y 1000",-1000, 1000, 3)==0)
+	{
+		if(utn_getFloat(&numeroB, "ingrese el segundo número (puede ser positivo,negativo,decimal)", "ERROR. Por favor ingrese un dato válido entre -1000 y 1000",-1000, 1000, 3)==0)
+		{
+			if (utn_sumarFloat(&resultadoSuma, numeroA, numeroB)==0)
+			{
+				printf("\nEl resultado de %.2f+%.2f es: %.2f", numeroA, numeroB, resultadoSuma);
+			}
+
+			if (utn_restarFloat(&resultadoResta, numeroA, numeroB)==0)
+			{
+				printf("\nEl resultado de %.2f-%.2f es: %.2f", numeroA, numeroB, resultadoResta);
+			}
 
 
-	if (utn_dividirFloat(&resultadoDivision, numeroA, numeroB)==0)
-	{
-		printf("\nEl resultado de %.2f/%.2f es: %.2f",numeroA, numeroB, resultadoDivision);
-	}
-	if (utn_multiplicarFloat(&resultadoMultiplicacion, numeroA, numeroB)==0)
-	{
-		printf("\nEl resultado de %.2f*%.2f es: %.2f", numeroA, numeroB, resultadoMultiplicacion);
-	}
-	if (utn_sumarFloat(&resultadoSuma, numeroA, numeroB)==0)
-	{
-		printf("\nEl resultado de %.2f+%.2f es: %.2f", numeroA, numeroB, resultadoSuma);
-	}
-	if (utn_restarFloat(&resultadoResta, numeroA, numeroB)==0)
-	{
-		printf("\nEl resultado de %.2f-%.2f es: %.2f", numeroA, numeroB, resultadoResta);
-	}
-	if (utn_factorialFloat(&resultadoFactorial, numeroA)==0)
-	{
-		printf("\nEl factorial de %.2f es: %.2f", numeroA, resultadoFactorial);
-	}
-	else if (utn_factorialFloat(&resultadoFactorial, numeroA)==-2)
-	{
-		printf("\nno existe el factoral de %.2f porque es numero negativo :(", numeroA);
-	}
+			if (utn_dividirFloat(&resultadoDivision, numeroA, numeroB)==0)
+			{
+				printf("\nEl resultado de %.2f/%.2f es: %.2f",numeroA, numeroB, resultadoDivision);
+			}
+			else if (utn_dividirFloat(&resultadoDivision, numeroA, numeroB)==-2)
+			{
+				printf("\nno se puede dividir por un numero negativo numero negativo :(");
+			}
 
-	if (utn_factorialFloat(&resultadoFactorial, numeroB)==0)
-	{
-		printf("\nEl factorial de %.2f es: %.2f", numeroB, resultadoFactorial);
+
+			if (utn_multiplicarFloat(&resultadoMultiplicacion, numeroA, numeroB)==0)
+			{
+				printf("\nEl resultado de %.2f*%.2f es: %.2f", numeroA, numeroB, resultadoMultiplicacion);
+			}
+
+
+			if (utn_factorialFloat(&resultadoFactorial, numeroA)==0)
+			{
+				printf("\nEl factorial de %.2f es: %.2f", numeroA, resultadoFactorial);
+			}
+			else if (utn_factorialFloat(&resultadoFactorial, numeroA)==-2)
+			{
+				printf("\nno existe el factorial de %.2f porque es numero negativo :(", numeroA);
+			}
+			else if (utn_factorialFloat(&resultadoFactorial, numeroA)==-2)
+			{
+				printf("\nse calcula factorial solo para numeros enteros :(");
+			}
+
+
+			if (utn_factorialFloat(&resultadoFactorial, numeroB)==0)
+			{
+				printf("\nEl factorial de %.2f es: %.2f", numeroB, resultadoFactorial);
+			}
+			else if (utn_factorialFloat(&resultadoFactorial, numeroB)==-2)
+			{
+				printf("\nno existe el factorial de %.2f porque es numero negativo :(", numeroB);
+			}
+			else if (utn_factorialFloat(&resultadoFactorial, numeroB)==-3)
+			{
+				printf("\nse calcula factorial solo para numeros enteros :(");
+			}
+		}
 	}
-	else if (utn_factorialFloat(&resultadoFactorial, numeroB)==-2)
-	{
-		printf("\nno existe el factoral de %.2f porque es numero negativo :(", numeroB);
-	}
+	return EXIT_SUCCESS;
 }

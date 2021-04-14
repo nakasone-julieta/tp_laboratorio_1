@@ -1,4 +1,4 @@
-/*
+ /*
  * utn.c
  *
  *  Created on: 25 mar. 2021
@@ -9,9 +9,7 @@
 #include <stdlib.h>
 #include <stdio_ext.h>//siempre en linux************
 #include "utn.h"
-static int getInt(int* pResultado);
-static int esNumerica(char* cadena);
-static int myGets(char* cadena, int longitud);
+
 ///////////////////////////////operaciones simples
 int utn_dividirFloat (float* pResultado, float dividendo, float divisor)
 {
@@ -164,126 +162,6 @@ int utn_getChar (char* pCaracter, char* pMensaje, char* pMensajeError, char min,
 		return retornoFuncion;
 }
 
-/**
- * \brief		Lee de stdin hasta que encuentra un '\n' o hasta que haya copiado en cadena un máximo de 'longitud - 1'
- * 				caracteres.
- * \param char pCadena: Puntero al espacio de memoria donde se copiará la cadea obtenida
- * \param int longitud: define el tamaño de cadena
- * \return Retorna 0(EXITO) si se obtiene una cadena. Sino se obtiene -1(ERROR)
- *
- */
-static int myGets(char* pCadena, int longitud)
-{
-	int retorno= -1;
-	if (pCadena != NULL && longitud >0 && fgets(pCadena, longitud, stdin)==pCadena)
-	{
-		__fpurge(stdin);
-		if (pCadena [strlen(pCadena)-1]=='\n')
-		{
-			pCadena  [strlen(pCadena)-1]= 0;
-		}
-		retorno=0;
-	}
-	return retorno;
-}
-
-
-/**
- * \brief		Verifica si la cadena ingresada es numérica
- * \param int pResultado: Puntero al espacio de memoria donde se dejará el resultado de la función
- * \return Retorna 0(EXITO)si se obtiene un numero entero. Sino, -1(ERROR)
- *
- */
-static int getInt(int* pResultado)
-{
-	int ret= -1;
-	char buffer[64];
-
-	if(pResultado != NULL)
-	{
-		if(myGets(buffer, sizeof(buffer))==0 && esNumerica(buffer))
-		{
-			*pResultado =atoi(buffer);
-			ret= 0;
-		}
-	}
-
-	return ret;
-}
-
-/**
- * \brief		Verifica si la cadena ingresada es numerica
- * \param char pCadena: cadena de caracteres a ser analizada (si es un puntero, no tendrìa que ser una variable, para analizar el contenido??)p15
- * \return Retorna 0(EXITO)si se obtiene un numero entero. Sino, -1(ERROR)
- *
- */
-static int esNumerica(char* pCadena)
-{
-	int i=0;
-	int retorno =1;
-	if(pCadena != NULL && strlen(pCadena)>0)
-	{
-		while(pCadena[i]!='\0')
-		{
-			if (pCadena[i]<'0' || pCadena[i]>'9')
-			{
-				retorno =0;
-				break;
-			}
-			i++;
-		}
-	}
-	return retorno;
-}
-
-
-
-
-/**
- * \brief	Solicita un numero al usuario, luego de verificarlo devuelve el resultado
- * \param int pResultado: puntero al espacio de memoria donde se escribirá el valor ingresado en el caso de ser correcto
- * \param char pMensaje: puntero a cadena de caracteres con mensaje a imprimir antes de pedirle al usuario datos por consola
- * \param char pMensajeError: puntero a cadena de caracteres con mensaje de error en el caso de que el dato ingresado no sea válido
- * \param int min:Valor mínimo admitido (inclusive)
- * \param int max: Valor máximo admitido (inclusive)
- * \param int intentos: cantidad de veces que se le volverá a pedir al usuario que ingrese un dato en caso de error
- * \param retorna 0 si se obtuvo el numero, sino -1
- *
- */
-int utn_getNumero(int* pResultado, char* pMensaje, char* pMensajeError, int min, int max, int intentos)
-{
-	int retornoFuncion;
-	int numero;
-	//if (pResultado != NULL && pMensaje != NULL && pMensajeError != NULL && min <= max && reintentos >= 0 )
-		//{
-			while(intentos>0)
-			{
-				printf(pMensaje);
-				__fpurge(stdin);
-				if(getInt(&numero)==1)
-				{
-					if(numero<=max && numero>=min)
-					{
-						break;
-					}
-				}
-
-				intentos --;
-				printf(pMensajeError);
-			}
-			if(intentos==0)
-			{
-				retornoFuncion=-1;
-			}
-			else
-			{
-				retornoFuncion=0;
-				*pResultado=numero;
-			}
-	//	}
-	return retornoFuncion;
-
-}
 
 ///////////////////////////////operaciones con array
 int utn_imprimirArray(int array[], int len)
@@ -337,20 +215,20 @@ int utn_sumarArray(float* pResultado, int array[], int len)//calcular la suma de
 	return retornoFuncion;
 }
 
-int utn_buscarMinimoArrayInt (int* pArray,int limite, int* pResultado)
+int utn_buscarMinimoArrayInt (int array[],int limite, int* pResultado)
 {
     int retorno=-1;
     int minimo;
     int i;
-    if(pArray !=NULL && limite>0 && pResultado !=NULL)
+    if(array !=NULL && limite>0 && pResultado !=NULL)
     {
-    	minimo=pArray[0];
+    	minimo=array[0];
 
     	for(i=1;i<limite;i++)
     	{
-    		if(pArray[i]<minimo)
+    		if(array[i]<minimo)
     		{
-    			minimo=pArray[i];
+    			minimo=array[i];
     		}
     	}
         retorno=0;
@@ -408,20 +286,19 @@ int utn_buscarIndiceDelMinimoArrayInt (int* pArray,int limite, int* pResultadoIn
     return retorno;
 }
 
-int utn_validarQueSeaNumero(char* texto)
+int utn_validarQueSeaNumero(char texto[])
 {
 	int retorno=-1;
 	int i=0;
 
 	if(texto!=NULL)
 	{
-		retorno=1; // sopongo que esta ok
-
+		retorno=0; // sopongo que esta ok
 		while(texto[i]!='\0')
 		{
-			if(texto[i]<'0'|| texto[i]>'9')
+			if(texto[i]<'0' || texto[i]>'9')
 			{
-				retorno=-2; // HAY UN ERROR
+				retorno=-1; // HAY UN ERROR
 				break; //dejo de leer (dejo de iterar)
 			}
 			i++;

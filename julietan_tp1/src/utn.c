@@ -11,19 +11,78 @@
 #include "utn.h"
 
 ///////////////////////////////operaciones simples
-int utn_dividirFloat (float* pResultado, float dividendo, float divisor)
+
+/** \brief función que opera entre dos variables tipo float, sumandolas y devuelve el retorno de la función
+ * \param float pResultado Puntero al espacio de memoria donde se escribirá el resultado de la operación
+ * \param float sumando1: recibe el valor alojado en la variable float para operar sobre él
+ * \param float sumando2: recibe el valor alojado en la variable float para operar sobre él
+ * \return retorna 0 los datos ingresados son válidos, sino -1
+ */
+int utn_sumarFloat (float* pResultado, float sumando1, float sumando2)
 {
-	float division;
 	int retorno = -1;
-	if(pResultado!= NULL && divisor != 0)
+	if (pResultado != NULL)
 	{
-		division = dividendo/divisor;
-		*pResultado=division;
-		retorno = 0;
+		*pResultado = (float)sumando1+sumando2;
+		retorno =  0;
 	}
 	return retorno;
 }
 
+/** \brief función que opera entre dos variables tipo float con una resta y devuelve el retorno de la función
+ * \param float pResultado Puntero al espacio de memoria donde se escribirá el resultado de la operación
+ * \param float minuendo: recibe el valor alojado en la variable float para operar sobre él
+ * \param float sustraendo: recibe el valor alojado en la variable float para operar con él
+ * \return retorna 0 los datos ingresados son válidos, sino -1
+ */
+int utn_restarFloat (float* pResultado, float minuendo, float sustraendo)
+{
+	int retorno = -1;
+	if (pResultado != NULL)
+	{
+		*pResultado = (float)minuendo-sustraendo;
+		retorno =  0;
+	}
+	return retorno;
+}
+
+/** \brief función que opera entre dos variables tipo float con una división y devuelve el retorno de la función
+ * \param float pResultado Puntero al espacio de memoria donde se escribirá el resultado de la operación
+ * \param float dividendo: recibe el valor alojado en la variable float para operar sobre él
+ * \param float divisor: recibe el valor alojado en la variable float para operar con él
+ * \return retorna 0 los datos ingresados son válidos y logra hacer la operación.
+ * 	 	   retorna -1 si los datos ingresados no son válidos
+ * 	 	   retorna -2 si los datos ingresados son válidos pero no lora hacer la operación
+ */
+int utn_dividirFloat (float* pResultado, float dividendo, float divisor)
+{
+	float division;
+	int retorno = -1;
+	if(pResultado!= NULL)
+	{
+		if(divisor != 0)
+		{
+			division = dividendo/divisor;
+			*pResultado=division;
+			retorno = 0;
+		}
+		else
+		{
+			retorno= -2;
+		}
+
+	}
+	return retorno;
+}
+
+
+/**\ brief función que opera entre dos variables tipo float multiplicándolos y devuelve el retorno de la función
+ * \param float pResultado Puntero al espacio de memoria donde se escribirá el resultado de la operación
+ * \param float factor1 recibe el valor alojado en la variable float para operar con él
+ * \param float factor2 recibe el valor alojado en la variable float para operar con él
+ * \return retorna 0 si los datos ingresados son válidos
+ * 		   retorna -1 si los datos ingresados no son válidos
+ */
 int utn_multiplicarFloat (float* pResultado, float factor1, float factor2)
 {
 	//float producto;
@@ -36,33 +95,20 @@ int utn_multiplicarFloat (float* pResultado, float factor1, float factor2)
 	return retorno;
 }
 
-int utn_sumarFloat (float* pResultado, float sumando1, float sumando2)
-{
-	int retorno = -1;
-	if (pResultado != NULL)
-	{
-		*pResultado = (float)sumando1+sumando2;
-		retorno =  0;
-	}
-	return retorno;
-}
 
-int utn_restarFloat (float* pResultado, float minuendo, float sustraendo)
-{
-	int retorno = -1;
-	if (pResultado != NULL)
-	{
-		*pResultado = (float)minuendo-sustraendo;
-		retorno =  0;
-	}
-	return retorno;
-}
-
+/**\ brief función que opera el número recibido y le calcula el factorial
+ * \param float pResultado Puntero al espacio de memoria donde se escribirá el resultado de la operación
+ * \param float numero recibe el valor alojado en la variable float para operar sobre él
+ * \return retorna 0 si los datos ingresados son válidos y se pudo calcular el factorial
+ * 		   retorna -1 si los datos ingresados no son válidos
+ * 		   retorna -2 si el número recibido es negativo, por lo cual no se calcula el factorial
+ * 		   retorna -3 si el número recibido no es un entero, por lo cual no se calcula el factorial
+ */
 int utn_factorialFloat(float* pResultado, float numero) //retornoFuncion=-2 -> numero negativo no tiene factorial//// retornoFuncion=0 -> el numero era positivo
 {
 	int retornoFuncion=-1;
 	float numeroPositivo;
-	int flagNegativo=1;
+	//int flagPositivo=1;
 	int i;
 	float multiplicar;
 	float acumulador=0;
@@ -70,36 +116,35 @@ int utn_factorialFloat(float* pResultado, float numero) //retornoFuncion=-2 -> n
 	if(pResultado!=NULL)
 	{
 		retornoFuncion=0;
-		if(numero<0)
-		{
-			flagNegativo=0;
-		}
-		else
-		{
-			numeroPositivo=numero;
-		}
-		for (i=numero; i>0; i--)
-		{
-			if(i==numeroPositivo)
-			{
-				multiplicar=i*1;
-				acumulador=multiplicar;
-			}
-			else
-			{
-				multiplicar = acumulador*i;
-				acumulador=multiplicar;
-			}
-		}
-		if (flagNegativo!=0)
-		{
-			*pResultado=acumulador;
-		}
-		else//si el numero ingresado era negativo (impar), transformo el resultado a negativo
+		if(numero<0)//de -1 a menos
 		{
 			retornoFuncion =-2;
 		}
-
+		else if(numero>1)// de 2 (inclusive) en adelante
+		{
+			numeroPositivo=numero;
+			for (i=numero; i>1; i--)
+			{
+				if(i==numeroPositivo)
+				{
+					multiplicar=i*1;
+					acumulador=multiplicar;
+				}
+				else
+				{
+					multiplicar = acumulador*i;
+					acumulador=multiplicar;
+				}
+			}
+			if((*pResultado=acumulador)==0)
+			{
+				retornoFuncion =-3;
+			}
+		}
+		else//si nuermo es 0 o 1
+		{
+			*pResultado=1;
+		}
 	}
 	return retornoFuncion;
 }
@@ -141,6 +186,17 @@ int utn_getInt(int *pNumero,char*pMensaje,char*pMensajeError, int min, int max,i
 	return retornoFuncion;
 }
 
+/** \brief Solicita un numero(float) al usuario, luego de verificarlo lo guarda en pResultado y devuelve el retorno de la funcion
+ * \param float pResultado: Puntero al espacio de memoria donde se dejará el resultado de la función
+ * \param char pMensaje: mensaje que a ser mostrado previo a recibir datos
+ * \param char pMensajeError: mensaje a ser mostrado en caso de error
+ * \param float min: criterio minimo para aceptar el valor ingresado
+ * \param float max: criterio maximo para aceptar el valor ingresado
+ * \param int reintentos: oportunidades para reintentar la carga una vez que se haya cometido un error
+ * \param retorna 0(EXITO)si el valor ingresado cumple con el criterio, siendo todos los parámetros son válidos.
+ * 		  Retorna -1(ERROR) si los parametros no son válidos
+ * 		  Retorna -2(ERROR) si los parametros son válidos pero no se cumple el criterio
+ */
 int utn_getFloat(float *pDecimal,char*pMensaje,char*pMensajeError, float min, float max,int reintentos)
 {
 	int retornoFuncion = -1;
@@ -148,6 +204,7 @@ int utn_getFloat(float *pDecimal,char*pMensaje,char*pMensajeError, float min, fl
 
 	if (pDecimal != NULL && pMensaje != NULL && pMensajeError != NULL && min <= max && reintentos >= 0 )
 	{
+		retornoFuncion = -2;
 		for (int i= reintentos; i >= 0; i --)
 		{
 			printf ("%s", pMensaje);
@@ -166,11 +223,11 @@ int utn_getFloat(float *pDecimal,char*pMensaje,char*pMensajeError, float min, fl
 			}
 		}
 	}
-	else
+	/*else
 	{
 		printf ("%s", pMensajeError);
 		reintentos --;
-	}
+	}*/
 
 	return retornoFuncion;
 }
@@ -284,72 +341,6 @@ int utn_buscarMinimoArrayInt (int array[],int limite, int* pResultado)
     return retorno;
 }
 
-int utn_buscarMaximoArrayInt (int* pArray,int limite, int* pResultado)
-{
-    int retorno=-1;
-    int maximo;
-    int i;
-    if(pArray !=NULL && limite>0 && pResultado !=NULL)
-    {
-    	maximo=pArray[0];
 
-    	for(i=1;i<limite;i++)
-    	{
-    		if(pArray[i]>maximo)
-    		{
-    			maximo=pArray[i];
-    		}
-    	}
-        retorno=0;
-    }
-    *pResultado=maximo;
 
-    return retorno;
-}
-
-int utn_buscarIndiceDelMinimoArrayInt (int* pArray,int limite, int* pResultadoIndice)
-{
-    int retorno=-1;
-    int minimo;
-    int indiceDeMinimo;
-    int i;
-    if(pArray !=NULL && limite>0 && pResultadoIndice !=NULL)
-    {
-    	minimo=pArray[0];
-
-    	for(i=1;i<limite;i++)
-    	{
-    		if(pArray[i]<minimo)
-    		{
-    			minimo=pArray[i];
-    			indiceDeMinimo = i;
-    		}
-    	}
-        retorno=0;
-    }
-    *pResultadoIndice=indiceDeMinimo;
-
-    return retorno;
-}
-
-int utn_validarQueSeaNumero(char texto[])
-{
-	int retorno=-1;
-	int i=0;
-
-	if(texto!=NULL)
-	{
-		retorno=0; // sopongo que esta ok
-		while(texto[i]!='\0')
-		{
-			if(texto[i]<'0' || texto[i]>'9')
-			{
-				retorno=-1; // HAY UN ERROR
-				break; //dejo de leer (dejo de iterar)
-			}
-			i++;
-		}
-	}
-	return retorno;
-}
 
