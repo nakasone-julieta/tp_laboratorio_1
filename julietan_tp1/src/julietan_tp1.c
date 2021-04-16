@@ -41,8 +41,10 @@ int main(void)
 	if(utn_getFloat(&numeroA, "ingrese el primer número (puede ser positivo,negativo,decimal)",
 							  "ERROR. Por favor ingrese un dato válido entre -1000 y 1000",-1000, 1000, 3)==0)
 	{
-		if(utn_getFloat(&numeroB, "ingrese el segundo número (puede ser positivo,negativo,decimal)", "ERROR. Por favor ingrese un dato válido entre -1000 y 1000",-1000, 1000, 3)==0)
+		if(utn_getFloat(&numeroB, "ingrese el segundo número (puede ser positivo,negativo,decimal)",
+				"ERROR. Por favor ingrese un dato válido entre -1000 y 1000",-1000, 1000, 3)==0)
 		{
+			printf("usted ingresó los números %.2f y %.2f", numeroA, numeroB);
 			if (utn_sumarFloat(&resultadoSuma, numeroA, numeroB)==0)
 			{
 				printf("\nEl resultado de %.2f+%.2f es: %.2f", numeroA, numeroB, resultadoSuma);

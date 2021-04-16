@@ -95,7 +95,6 @@ int utn_multiplicarFloat (float* pResultado, float factor1, float factor2)
 	return retorno;
 }
 
-
 /**\ brief función que opera el número recibido y le calcula el factorial
  * \param float pResultado Puntero al espacio de memoria donde se escribirá el resultado de la operación
  * \param float numero recibe el valor alojado en la variable float para operar sobre él
@@ -120,6 +119,10 @@ int utn_factorialFloat(float* pResultado, float numero) //retornoFuncion=-2 -> n
 		{
 			retornoFuncion =-2;
 		}
+		/*else if(numero>0 && numero<1)//entre 0 y 1
+		{
+			retornoFuncion =-3;
+		}*/
 		else if(numero>1)// de 2 (inclusive) en adelante
 		{
 			numeroPositivo=numero;
@@ -340,6 +343,7 @@ int utn_buscarMinimoArrayInt (int array[],int limite, int* pResultado)
 
     return retorno;
 }
+
 
 
 
