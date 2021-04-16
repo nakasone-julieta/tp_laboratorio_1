@@ -47,19 +47,15 @@ int main(void)
 			printf("usted ingresó los números %.2f y %.2f", numeroA, numeroB);
 
 			utn_sumarFloat(&resultadoSuma, numeroA, numeroB);
-			{
-				printf("\nEl resultado de %.2f+%.2f es: %.2f", numeroA, numeroB, resultadoSuma);
-			}
+			printf("\nEl resultado de %.2f+%.2f es: %.2f", numeroA, numeroB, resultadoSuma);
 
-			if (utn_restarFloat(&resultadoResta, numeroA, numeroB)==0)
-			{
-				printf("\nEl resultado de %.2f-%.2f es: %.2f", numeroA, numeroB, resultadoResta);
-			}
+			utn_restarFloat(&resultadoResta, numeroA, numeroB);
+			printf("\nEl resultado de %.2f-%.2f es: %.2f", numeroA, numeroB, resultadoResta);
 
 
 			if (utn_dividirFloat(&resultadoDivision, numeroA, numeroB)==0)
 			{
-				printf("\nEl resultado de %.2f/%.2f es: %.2f",numeroA, numeroB, resultadoDivision);
+				printf("\n El resultado de %.2f/%.2f es: %.2f",numeroA, numeroB, resultadoDivision);
 			}
 			else if (utn_dividirFloat(&resultadoDivision, numeroA, numeroB)==-2)
 			{
@@ -67,10 +63,8 @@ int main(void)
 			}
 
 
-			if (utn_multiplicarFloat(&resultadoMultiplicacion, numeroA, numeroB)==0)
-			{
-				printf("\nEl resultado de %.2f*%.2f es: %.2f", numeroA, numeroB, resultadoMultiplicacion);
-			}
+			utn_multiplicarFloat(&resultadoMultiplicacion, numeroA, numeroB);
+			printf("\nEl resultado de %.2f*%.2f es: %.2f", numeroA, numeroB, resultadoMultiplicacion);
 
 
 			if (utn_factorialFloat(&resultadoFactorial, numeroA)==0)
