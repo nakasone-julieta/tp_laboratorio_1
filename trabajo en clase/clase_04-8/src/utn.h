@@ -14,8 +14,8 @@ int utn_dividirFloat (float* pResultado, float dividendo, float divisor);
 int utn_multiplicarFloat (float* pResultado, float factor1, float factor2);
 int utn_factorialFloat(float* pResultado, float numero);
 
-int utn_getCaracter (char* pCaracter, char* pMensaje, char* pMensajeError, char min, char max, int reintentos);
+int myGets(char* pCadena, int len);
+//int utn_getCaracter (char* pCaracter, char* pMensaje, char* pMensajeError, char min, char max, int reintentos);
 int utn_getNumero (int* pNumero, char* pMensaje, char* pMensajeError, char min, char max, int reintentos);
-int utn_getFlotante (float* pNumFloat, char* pMensaje, char* pMensajeError, char min, char max, int reintentos);
-
+int utn_getFlotante (float* pNumFloat, char* pMensaje, char* pMensajeError, float min, float max, int reintentos);
 #endif /* UTN_H_ */

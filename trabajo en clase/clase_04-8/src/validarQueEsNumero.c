@@ -15,15 +15,11 @@
 
 int main(void)
 {
-	char unNumero;
+	int RetornoFuncion;
+	float resultado;
 
-	if(utn_getCaracter(&unNumero, "ingresa algo\n", "eso no vale, un numero?\n", 65, 90, 1)==0)
-	{
-		printf("numero: %c", unNumero);
-	}
-	/*int unNumero=1;
-	utn_getNumero(&unNumero, "\ningresa algo", "\neso no vale, un numero?", 0, 10, 2);
-	printf("su numero es %d", unNumero);*/
+	RetornoFuncion = utn_getFlotante(&resultado, "numero\n", "ERROR ingrese un numero", -1.9, 10.3, 2);
+	printf("resultado %.2f - RetornoFuncion %d", resultado, RetornoFuncion);
 }
 /*{
 	char texto[11];

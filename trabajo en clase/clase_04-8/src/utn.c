@@ -12,52 +12,15 @@
 #include <stdio_ext.h>//siempre en linux************
 #include <string.h>
 #include "utn.h"
-static int getFloat(float* pResultado);
-static int getInt (int* pResultado);
-static int myGets(char* cadena, int longitud);
+
 static int esNumerica(char* cadena);
 
-static int getFloat(float* pResultado)
-{
-	int retorno=-1;
-	char buffer[4096];
-	if(pResultado != NULL)
-	{
-		if(myGets(buffer, sizeof(buffer))==0 && esNumerica(buffer))//esNumerica(buffer)==1 es verdadero :)
-		{
-			retorno = 0;
-			*pResultado = atoi(buffer);
-		}
-	}
+static int getInt (int* pResultado);
+static int esNumerica(char* cadena);
 
+static int getFloat (float* pResultado);
+static int esFlotante(char* cadena);
 
-	return retorno;
-}
-
-/**
- *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ numerica (int)
- *  \param pResultado Puntero al espacio de memoria donde se dejará el resultado de la función
- *  \return Retorna 0(EXITO) si se obtiene un numero entero, sino -1(ERROR)
- *  * NOTAS: incluye el uso de: esNumerica para verificar que todos los elementos sean numeros
- * 		   					 myGets para obtener datos ingresados por el usuario, de modo seguro, sin desbordar la variable en la que se escribe
- *
- */
-static int getInt (int* pResultado)
-{
-	int retorno=-1;
-	char buffer[4096];
-	if(pResultado != NULL)
-	{
-		if(myGets(buffer, sizeof(buffer))==0 && esNumerica(buffer))//esNumerica(buffer)==1 es verdadero :)
-		{
-			retorno = 0;
-			*pResultado = atoi(buffer);
-		}
-	}
-
-
-	return retorno;
-}
 
 
 /**
@@ -66,9 +29,9 @@ static int getInt (int* pResultado)
  * \param pCadena Puntero al espacio de memoria donde se copiará la cadena obtenida
  * \param len Define el tamaño de la cadena
  * \return Retorna 0 (EXITO) si se obtiene una cadena, sino -1(ERROR)
- *
+ * nota: se encarga de recibir un string
  */
-static int myGets(char* pCadena, int len)
+int myGets(char* pCadena, int len)
 {
 	if(pCadena != NULL && len > 0 &&fgets(pCadena, len, stdin)== pCadena)
 	{
@@ -111,6 +74,110 @@ static int esNumerica(char* cadena)
 	}
 	return retorno;
 }
+
+////////////***********FUNCIONES DE PRIMERA GENEREACION***********////////////
+/*________Para numero entero______*/
+
+/**
+ *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ numerica (int)
+ *  \param pResultado Puntero al espacio de memoria donde se dejará el resultado de la función
+ *  \return Retorna 0(EXITO) si se obtiene un numero entero, sino -1(ERROR)
+ *  * NOTAS: incluye el uso de: esNumerica para verificar que todos los elementos sean numeros
+ * 		   					 myGets para obtener datos ingresados por el usuario, de modo seguro, sin desbordar la variable en la que se escribe
+ *
+ */
+static int getInt (int* pResultado)
+{
+	int retorno=-1;
+	char buffer[4096];
+	if(pResultado != NULL)
+	{
+		if(myGets(buffer, sizeof(buffer))==0 && esNumerica(buffer))//esNumerica(buffer)==1 es verdadero :)
+		{
+			retorno = 0;
+			*pResultado = atoi(buffer);
+		}
+	}
+
+
+	return retorno;
+}
+
+
+/*________Para numero flotante________*/
+/**
+ *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ flotante
+ *  \param pResultado Puntero al espacio de memoria donde se dejará el resultado de la función
+ *  \return Retorna 0(EXITO) si se obtiene un numero flotante, sino -1(ERROR)
+ *
+ */
+static int getFloat (float* pResultado)
+{
+	int retorno=-1;
+	char buffer[64];
+
+	if(pResultado != NULL)
+	{
+		if(myGets(buffer, sizeof(buffer))==0 && esFlotante(buffer))
+		{
+			retorno = 0;
+			*pResultado = atof(buffer);
+		}
+	}
+
+
+	return retorno;
+}
+
+
+
+/**
+ *  \brief 		Verifica si la cadena ingresada es numérica
+ * \param cadena Cadena de caracteres a ser analizada
+ * \return Retorna 1(verdadero) si la cadena es flotante, y si no lo es retorna 0(FALSO)
+ *
+ */
+static int esFlotante(char* cadena)
+{
+	int retorno=1;
+	int i=0;
+	int contadorPuntos=0;
+
+	if(cadena!=NULL && strlen(cadena)>0)
+	{
+		for(i=0; cadena [i] != '\0'; i++)
+		{
+			if(i==0 && (cadena[i]== '-' || cadena[i]== '+'))
+			{
+				continue;
+			}
+			if(cadena [i] < '0' || cadena [i] > '9')
+			{
+				if(cadena[i] == '.' && contadorPuntos ==0)
+				{
+					contadorPuntos++;
+				}
+				else
+				{
+					retorno=0;
+					break;
+				}
+
+			}
+		}
+	}
+	return retorno;
+}
+
+/**
+ *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ numerica (int)
+ *  \param pResultado Puntero al espacio de memoria donde se dejará el resultado de la función
+ *  \return Retorna 0(EXITO) si se obtiene un numero entero, sino -1(ERROR)
+ *  * NOTAS: incluye el uso de: esNumerica para verificar que todos los elementos sean numeros
+ * 		   					 myGets para obtener datos ingresados por el usuario, de modo seguro, sin desbordar la variable en la que se escribe
+ *
+ */
+
 
 ///////////////////////////////operaciones matematicas
 
@@ -257,42 +324,6 @@ int utn_factorialFloat(float* pResultado, float numero)
 
 
 /**
- * \brief		Solicita al usuario el ingreso de un caracter
- * \param char pMensaje: puntero a cadena de caracteres con mensaje a imprimir antes de pedirle al usuario datos por consola
- * \param char pMensajeError: puntero a cadena de caracteres con mensaje de error en el caso de que el dato ingresado no sea válido
- * \param int min:Valor mínimo admitido (inclusive)
- * \param int max: Valor máximo admitido (inclusive)
- * \param int reintentos: cantidad de veces que se le volverá a pedir al usuario que ingrese un dato en caso de error
- * \param retorna 0 si se obtuvo el numero, sino -1
- *
- */
-int utn_getCaracter (char* pCaracter, char* pMensaje, char* pMensajeError, char min, char max, int reintentos)
-{
-	int retornoFuncion = -1;
-	char bufferChar;
-	if (pCaracter != NULL && pMensaje != NULL && pMensajeError != NULL && min <= max && reintentos >= 0 )
-	{
-		do
-		{
-			printf ("%s", pMensaje);
-			__fpurge(stdin);
-			scanf("%c",&bufferChar);
-
-			if (/*getInt(&bufferChar)==-1*/ && bufferChar>= min  && bufferChar<= max)
-			{
-				*pCaracter = bufferChar;
-				retornoFuncion =0;
-				break;
-			}
-			printf ("%s", pMensajeError);
-			reintentos --;
-		}while(reintentos >=0);
-	}
-	return retornoFuncion;
-}
-
-
-/**
  * \brief		Solicita al usuario el ingreso de un número entero, lo valida, lo verifica
  * 				y devuelve el resultado
  * \param char pMensaje: puntero a cadena de caracteres con mensaje a imprimir antes de pedirle al usuario datos por consola
@@ -329,8 +360,8 @@ int utn_getNumero (int* pNumero, char* pMensaje, char* pMensajeError, char min, 
 
 
 /**
- * \brief		Solicita al usuario el ingreso de un número flotante
- * \param char pMensaje: puntero a cadena de caracteres con mensaje a imprimir antes de pedirle al usuario datos por consola
+ * \brief		Solicita al usuario el ingreso de un número flotante, luego de verificarlo devuelve el resultado
+ * * \param char pMensaje: puntero a cadena de caracteres con mensaje a imprimir antes de pedirle al usuario datos por consola
  * \param char pMensajeError: puntero a cadena de caracteres con mensaje de error en el caso de que el dato ingresado no sea válido
  * \param int min:Valor mínimo admitido (inclusive)
  * \param int max: Valor máximo admitido (inclusive)
@@ -338,7 +369,7 @@ int utn_getNumero (int* pNumero, char* pMensaje, char* pMensajeError, char min, 
  * \param retorna 0 si se obtuvo el numero, sino -1
  *
  */
-int utn_getFlotante (float* pNumFloat, char* pMensaje, char* pMensajeError, char min, char max, int reintentos)
+int utn_getFlotante (float* pNumFloat, char* pMensaje, char* pMensajeError, float min, float max, int reintentos)
 {
 	int retornoFuncion = -1;
 	float bufferFloat;
@@ -348,9 +379,8 @@ int utn_getFlotante (float* pNumFloat, char* pMensaje, char* pMensajeError, char
 		{
 			printf ("%s", pMensaje);
 			__fpurge(stdin);
-			scanf("%f",&bufferFloat);
 
-			if (/*getFloat(&bufferFloat)==0 && */bufferFloat>= min  && bufferFloat<= max)
+			if (getFloat(&bufferFloat)==0 && bufferFloat>= min  && bufferFloat<= max)
 			{
 				*pNumFloat = bufferFloat;
 				retornoFuncion =0;
