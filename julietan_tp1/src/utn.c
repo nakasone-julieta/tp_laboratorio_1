@@ -1,3 +1,5 @@
+
+
 /*
  * utn.c
  *
@@ -8,9 +10,176 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio_ext.h>//siempre en linux************
+#include <string.h>
 #include "utn.h"
 
-///////////////////////////////operaciones simples
+static int esNumerica(char* cadena);
+
+static int getInt (int* pResultado);
+static int esNumerica(char* cadena);
+
+static int getFloat (float* pResultado);
+static int esFlotante(char* cadena);
+
+
+
+/**
+ *  \brief 		Lee de archivo(stdin) hasta que encuentra un '\n' o hasta que haya copiado en cadena
+ *  			un máximo de 'longitud -1' caracteres.
+ * \param pCadena Puntero al espacio de memoria donde se copiará la cadena obtenida
+ * \param len Define el tamaño de la cadena
+ * \return Retorna 0 (EXITO) si se obtiene una cadena, sino -1(ERROR)
+ * nota: se encarga de recibir un string
+ */
+int myGets(char* pCadena, int len)
+{
+	if(pCadena != NULL && len > 0 &&fgets(pCadena, len, stdin)== pCadena)
+	{
+		__fpurge(stdin);
+		if(pCadena[strlen(pCadena)-1]== '\n')
+		{
+			pCadena[strlen(pCadena)-1]= '\0';
+		}
+		return 0;
+	}
+	return -1;
+}
+
+/**
+ *  \brief 		Verifica si la cadena ingresada es numérica
+ * \param cadena Cadena de caracteres a ser analizada
+ * \return Retorna 1(verdadero) si la cadena es numérica, y si no lo es retorna 0(FALSO)
+ *
+ */
+static int esNumerica(char* cadena)
+{
+	int retorno=1;
+	int i=0;
+	if(cadena!=NULL && strlen(cadena)>0)
+	{
+		if (cadena[0]=='-')
+		{
+			i=1;
+		}
+		while (cadena[i] != '\0')//puedo usar un for porq tengo todos los elementos tmb
+		{
+
+			if (cadena [i]<'0' || cadena[i]>'9')//si el elemento en i sale de los parametros como numero
+			{
+				retorno =0; //devuelvo falso
+				break;
+			}
+			i++;
+		}
+	}
+	return retorno;
+}
+
+////////////***********FUNCIONES DE PRIMERA GENEREACION***********////////////
+/*________Para numero entero______*/
+
+/**
+ *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ numerica (int)
+ *  \param pResultado Puntero al espacio de memoria donde se dejará el resultado de la función
+ *  \return Retorna 0(EXITO) si se obtiene un numero entero, sino -1(ERROR)
+ *  * NOTAS: incluye el uso de: esNumerica para verificar que todos los elementos sean numeros
+ * 		   					 myGets para obtener datos ingresados por el usuario, de modo seguro, sin desbordar la variable en la que se escribe
+ *
+ */
+static int getInt (int* pResultado)
+{
+	int retorno=-1;
+	char buffer[4096];
+	if(pResultado != NULL)
+	{
+		if(myGets(buffer, sizeof(buffer))==0 && esNumerica(buffer))//esNumerica(buffer)==1 es verdadero :)
+		{
+			retorno = 0;
+			*pResultado = atoi(buffer);
+		}
+	}
+
+
+	return retorno;
+}
+
+
+/*________Para numero flotante________*/
+/**
+ *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ flotante
+ *  \param pResultado Puntero al espacio de memoria donde se dejará el resultado de la función
+ *  \return Retorna 0(EXITO) si se obtiene un numero flotante, sino -1(ERROR)
+ *
+ */
+static int getFloat (float* pResultado)
+{
+	int retorno=-1;
+	char buffer[64];
+
+	if(pResultado != NULL)
+	{
+		if(myGets(buffer, sizeof(buffer))==0 && esFlotante(buffer))
+		{
+			retorno = 0;
+			*pResultado = atof(buffer);
+		}
+	}
+
+
+	return retorno;
+}
+
+
+
+/**
+ *  \brief 		Verifica si la cadena ingresada es numérica
+ * \param cadena Cadena de caracteres a ser analizada
+ * \return Retorna 1(verdadero) si la cadena es flotante, y si no lo es retorna 0(FALSO)
+ *
+ */
+static int esFlotante(char* cadena)
+{
+	int retorno=1;
+	int i=0;
+	int contadorPuntos=0;
+
+	if(cadena!=NULL && strlen(cadena)>0)
+	{
+		for(i=0; cadena [i] != '\0'; i++)
+		{
+			if(i==0 && (cadena[i]== '-' || cadena[i]== '+'))
+			{
+				continue;
+			}
+			if(cadena [i] < '0' || cadena [i] > '9')
+			{
+				if(cadena[i] == '.' && contadorPuntos ==0)
+				{
+					contadorPuntos++;
+				}
+				else
+				{
+					retorno=0;
+					break;
+				}
+
+			}
+		}
+	}
+	return retorno;
+}
+
+/**
+ *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ numerica (int)
+ *  \param pResultado Puntero al espacio de memoria donde se dejará el resultado de la función
+ *  \return Retorna 0(EXITO) si se obtiene un numero entero, sino -1(ERROR)
+ *  * NOTAS: incluye el uso de: esNumerica para verificar que todos los elementos sean numeros
+ * 		   					 myGets para obtener datos ingresados por el usuario, de modo seguro, sin desbordar la variable en la que se escribe
+ *
+ */
+
+
+///////////////////////////////operaciones matematicas
 
 /** \brief función que opera entre dos variables tipo float, sumandolas y devuelve el retorno de la función
  * \param float pResultado Puntero al espacio de memoria donde se escribirá el resultado de la operación
@@ -103,7 +272,7 @@ int utn_multiplicarFloat (float* pResultado, float factor1, float factor2)
  * 		   retorna -2 si el número recibido es negativo, por lo cual no se calcula el factorial
  * 		   retorna -3 si el número recibido no es un entero, por lo cual no se calcula el factorial
  */
-int utn_factorialFloat(float* pResultado, float numero) //retornoFuncion=-2 -> numero negativo no tiene factorial//// retornoFuncion=0 -> el numero era positivo
+int utn_factorialFloat(float* pResultado, float numero)
 {
 	int retornoFuncion=-1;
 	float numeroPositivo;
@@ -151,200 +320,75 @@ int utn_factorialFloat(float* pResultado, float numero) //retornoFuncion=-2 -> n
 	}
 	return retornoFuncion;
 }
+//////////////////////////////////////////////////////////////intercambio con el usuario
 
-///////////////////////////////interaccion con usuario
 
-int utn_getInt(int *pNumero,char*pMensaje,char*pMensajeError, int min, int max,int reintentos)
+/**
+ * \brief		Solicita al usuario el ingreso de un número entero, lo valida, lo verifica
+ * 				y devuelve el resultado
+ * \param char pMensaje: puntero a cadena de caracteres con mensaje a imprimir antes de pedirle al usuario datos por consola
+ * \param char pMensajeError: puntero a cadena de caracteres con mensaje de error en el caso de que el dato ingresado no sea válido
+ * \param int min:Valor mínimo admitido (inclusive)
+ * \param int max: Valor máximo admitido (inclusive)
+ * \param int reintentos: cantidad de veces que se le volverá a pedir al usuario que ingrese un dato en caso de error
+ * \param retorna 0 si se obtuvo el numero, sino -1
+ *
+ */
+int utn_getNumero (int* pNumero, char* pMensaje, char* pMensajeError, char min, char max, int reintentos)
 {
-	int retornoFuncion = -1; //ERROR alguno de los parámetros no verifica: esto sería un problema de la persona que llamó a la función?
+	int retornoFuncion = -1;
 	int bufferInt;
 
 	if (pNumero != NULL && pMensaje != NULL && pMensajeError != NULL && min <= max && reintentos >= 0 )
 	{
-		for (int i= reintentos; i >= 0; i --)
+		do
 		{
-			retornoFuncion = -2; //otro tipo de error: bufferInt no se encuentra dentro del rango establecido ÉSTO SERÍA IGUAL SI ESTUVIERA EN EL ELSE?
-			printf ("%s", pMensaje);//**********NO SE PUEDE COLAR INFO PROPIA !! Se imprime tal cual me lo mandan
+			printf ("%s", pMensaje);
 			__fpurge(stdin);
-			scanf("%d",&bufferInt);
-			if (bufferInt>= min && bufferInt<= max)
+			if(getInt(&bufferInt)==0 && bufferInt>= min  && bufferInt<= max)
 			{
 				*pNumero = bufferInt;
 				retornoFuncion =0;
-				break; //***************salgo de la iteración del DO para llegar directamente al return (en este caso)
+				break;
 			}
-			else
-			{
-				retornoFuncion = -3;
-				printf ("%s", pMensajeError);
-				reintentos --; //*************si entra, la variable int reinteno (con su valor del main) desciende en 1
-			}
-		}
-	}
-	else
-	{
-		printf ("%s", pMensajeError);
-		reintentos --;
+			printf ("%s", pMensajeError);
+			reintentos --;
+		}while(reintentos >=0);
 	}
 	return retornoFuncion;
 }
 
-/** \brief Solicita un numero(float) al usuario, luego de verificarlo lo guarda en pResultado y devuelve el retorno de la funcion
- * \param float pResultado: Puntero al espacio de memoria donde se dejará el resultado de la función
- * \param char pMensaje: mensaje que a ser mostrado previo a recibir datos
- * \param char pMensajeError: mensaje a ser mostrado en caso de error
- * \param float min: criterio minimo para aceptar el valor ingresado
- * \param float max: criterio maximo para aceptar el valor ingresado
- * \param int reintentos: oportunidades para reintentar la carga una vez que se haya cometido un error
- * \param retorna 0(EXITO)si el valor ingresado cumple con el criterio, siendo todos los parámetros son válidos.
- * 		  Retorna -1(ERROR) si los parametros no son válidos
- * 		  Retorna -2(ERROR) si los parametros son válidos pero no se cumple el criterio
+
+/**
+ * \brief		Solicita al usuario el ingreso de un número flotante, luego de verificarlo devuelve el resultado
+ * * \param char pMensaje: puntero a cadena de caracteres con mensaje a imprimir antes de pedirle al usuario datos por consola
+ * \param char pMensajeError: puntero a cadena de caracteres con mensaje de error en el caso de que el dato ingresado no sea válido
+ * \param int min:Valor mínimo admitido (inclusive)
+ * \param int max: Valor máximo admitido (inclusive)
+ * \param int reintentos: cantidad de veces que se le volverá a pedir al usuario que ingrese un dato en caso de error
+ * \param retorna 0 si se obtuvo el numero, sino -1
+ *
  */
-int utn_getFloat(float *pDecimal,char*pMensaje,char*pMensajeError, float min, float max,int reintentos)
+int utn_getFlotante (float* pNumFloat, char* pMensaje, char* pMensajeError, float min, float max, int reintentos)
 {
 	int retornoFuncion = -1;
 	float bufferFloat;
-
-	if (pDecimal != NULL && pMensaje != NULL && pMensajeError != NULL && min <= max && reintentos >= 0 )
+	if (pNumFloat != NULL && pMensaje != NULL && pMensajeError != NULL && min <= max && reintentos >= 0 )
 	{
-		retornoFuncion = -2;
-		for (int i= reintentos; i >= 0; i --)
+		do
 		{
 			printf ("%s", pMensaje);
 			__fpurge(stdin);
-			scanf("%f",&bufferFloat);
-			if (bufferFloat>= min && bufferFloat<= max)
+
+			if (getFloat(&bufferFloat)==0 && bufferFloat>= min  && bufferFloat<= max)
 			{
-				*pDecimal = bufferFloat;
+				*pNumFloat = bufferFloat;
 				retornoFuncion =0;
 				break;
 			}
-			else
-			{
-				printf ("%s", pMensajeError);
-				reintentos --;
-			}
-		}
-	}
-	/*else
-	{
-		printf ("%s", pMensajeError);
-		reintentos --;
-	}*/
-
-	return retornoFuncion;
-}
-
-int utn_getChar (char* pCaracter, char* pMensaje, char* pMensajeError, char min, char max, int reintentos)
-{
-	int retornoFuncion = -1;
-	char bufferChar;
-	if (pCaracter != NULL && pMensaje != NULL && pMensajeError != NULL && min <= max && reintentos >= 0 )
-	{
-		for (int i= reintentos; i >= 0; i --)
-		{
-			printf ("%s", pMensaje);
-			__fpurge(stdin);
-			scanf("%c",&bufferChar);
-			if (bufferChar>= min && bufferChar<= max)
-			{
-				*pCaracter = bufferChar;
-				retornoFuncion =0;
-				break; //salgo de la iteración del DO para llegar directamente al return (en este caso)
-			}
-			else
-			{
-				printf ("%s", pMensajeError);
-				reintentos --; //si entra, la variable int reinteno (con su valor del main) desciende en 1
-			}
-		}
-	}
-	else
-	{
-		printf ("%s", pMensajeError);
-		reintentos --;
-	}
-
-		return retornoFuncion;
-}
-
-
-///////////////////////////////operaciones con array
-int utn_imprimirArray(int array[], int len)
-{
-	int i;
-	int retornoFuncion = -1;
-	if (array != NULL && len >= 0)
-	{
-		for (i=0; i<len; i++)
-		{
-			retornoFuncion = 0;
-			printf ("%d ", array[i]);
-		}
+			printf ("%s", pMensajeError);
+			reintentos --;
+		}while(reintentos >=0);
 	}
 	return retornoFuncion;
 }
-
-int utn_promediarArray(float* pResultado, int array[], int len)//calcular promedio de los valores de Array
-{
-	int i;
-	int retornoFuncion = -1;
-	int acumuladorArray=0;
-
-	if (array != NULL && len >= 0)
-		{
-			for (i=0; i<len; i++)
-			{
-				retornoFuncion = 0;
-				acumuladorArray=acumuladorArray+array[i];
-			}
-		}
-	*pResultado=(float)acumuladorArray/len;
-	return retornoFuncion;
-}
-
-int utn_sumarArray(float* pResultado, int array[], int len)//calcular la suma de los elementos del array
-{
-	int i;
-	int retornoFuncion = -1;
-	int acumuladorArray=0;
-
-	if (array != NULL && len >= 0)
-		{
-			for (i=0; i<len; i++)
-			{
-				retornoFuncion = 0;
-				acumuladorArray=acumuladorArray+array[i];
-			}
-		}
-	*pResultado=acumuladorArray;
-	return retornoFuncion;
-}
-
-int utn_buscarMinimoArrayInt (int array[],int limite, int* pResultado)
-{
-    int retorno=-1;
-    int minimo;
-    int i;
-    if(array !=NULL && limite>0 && pResultado !=NULL)
-    {
-    	minimo=array[0];
-
-    	for(i=1;i<limite;i++)
-    	{
-    		if(array[i]<minimo)
-    		{
-    			minimo=array[i];
-    		}
-    	}
-        retorno=0;
-    }
-    *pResultado=minimo;
-
-    return retorno;
-}
-
-
-
-
-
