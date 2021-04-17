@@ -221,7 +221,7 @@ int utn_restarFloat (float* pResultado, float minuendo, float sustraendo)
  * \param float divisor: recibe el valor alojado en la variable float para operar con él
  * \return retorna 0 los datos ingresados son válidos y logra hacer la operación.
  * 	 	   retorna -1 si los datos ingresados no son válidos
- * 	 	   retorna -2 si los datos ingresados son válidos pero no logra hacer la operación
+ * 	 	   retorna -2 si los datos ingresados son válidos pero el divisor es 0
  */
 int utn_dividirFloat (float* pResultado, float dividendo, float divisor)
 {
