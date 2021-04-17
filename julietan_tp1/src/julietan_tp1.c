@@ -68,8 +68,8 @@ int main(void)
 				utn_multiplicarFloat(&resultadoMultiplicacion, numeroA, numeroB);
 				utn_factorialFloat(&resultadoFactorial, numeroA);
 				utn_factorialFloat(&resultadoFactorial, numeroB);
-				printf("\nCálculo de operaciones exitoso\n\n");
-				printf("\n*****************************************");
+				printf("\nCálculo de operaciones exitoso");
+				printf("\n*****************************************\n");
 				break;
 			case 4:
 				printf("\n INFORMAMOS TODOS LOS RESULTADOS");
@@ -102,8 +102,9 @@ int main(void)
 		}
 	}while (opcion != 5);
 	printf("\n*****************************************");
-	printf("usted ingresó los números %.2f y %.2f", numeroA, numeroB);
+	printf("\nusted ingresó los números %.2f y %.2f", numeroA, numeroB);
 	printf("\nSaliendo");
+	printf("\n...");
 	printf("\n*****************************************");
 
 	return EXIT_SUCCESS;
