@@ -13,37 +13,17 @@
 #include <string.h>
 #include "utn.h"
 
+
 int main(void)
 {
-	int RetornoFuncion;
-	float resultado;
+	int palabras;
+	char texto[]="las medidas de aislamiento bla bla";
 
-	RetornoFuncion = utn_getFlotante(&resultado, "numero\n", "ERROR ingrese un numero", -1.9, 10.3, 2);
-	printf("resultado %.2f - RetornoFuncion %d", resultado, RetornoFuncion);
+	if(utn_contarPalabras(&palabras, texto, sizeof(texto))==0)
+	{
+		printf("el txt contiene: %d palabras", palabras);
+	}
+
 }
-/*{
-	char texto[11];
-	int saldo=1;//saldo del banco
-
-
-	printf("escriba algo");
-	fgets(texto, 11, stdin);//​el ultimo parametro es desde donde lee; en este caso es mi propio programa de main
-	if(texto[strlen(texto)-1]==10)
-	{
-		texto[strlen(texto)-1]=0;
-	}
-
-	if(utn_validarQueSeaNumero(texto)==1)//validar que sean todos los caracteres numericos(del 0 al 9)
-	{
-
-		saldo = atoi(texto);
-
-
-	}
-	printf("\n tenes %d pesos en el banco", saldo);
-
-
-
-}*/
 
 
