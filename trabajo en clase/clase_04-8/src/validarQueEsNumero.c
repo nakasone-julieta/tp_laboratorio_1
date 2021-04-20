@@ -16,13 +16,11 @@
 
 int main(void)
 {
-	int palabras;
-	//char texto[]="las medidas de aislamiento bla bla";
-	if(utn_getNumero(&palabras, "numero", "error", 0, 10, 1)==0)
+
+	char palabras[150];
+
+	if(utn_getTexto(palabras, "palabra", "error",150, 1)==0)
 	{
-		printf("palabras: %d", palabras);
+		printf("palabras: %s", palabras);
 	}
-
 }
-
-

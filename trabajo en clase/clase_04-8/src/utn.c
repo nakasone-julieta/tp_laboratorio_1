@@ -16,15 +16,21 @@
 static int esNumerica(char* cadena);
 
 static int getInt (int* pResultado);
-static int esNumerica(char* aCadena);
+static int esNumerica(char* cadena);
 
 static int getFloat (float* pResultado);
 static int esFlotante(char* cadena);
 
+static int getChar (char* pResultado);
+static int esLetra(char* cadena);
+static int getCharInt (char* pResultado);
+static int esAlfaNumerico(char* cadena);
+static int esTelefono(char* cadena);
+
 
 
 /**
- *  \brief 		Lee de archivo(stdin) hasta que encuentra un '\n' o hasta que haya copiado en cadena
+ * \brief 		Lee de archivo(stdin) hasta que encuentra un '\n' o hasta que haya copiado en cadena
  *  			un máximo de 'longitud -1' caracteres.
  * \param pCadena Puntero al espacio de memoria donde se copiará la cadena obtenida
  * \param len Define el tamaño de la cadena
@@ -57,9 +63,11 @@ int myGets(char* pCadena, int len)
 }
 
 
+//////////////////////////////////////////////////NUMERO ENTERO
+////////VALIDA NUMERO
 /**
- *  \brief 		Verifica si la cadena ingresada es numérica
- * \param aCadena Cadena de caracteres a ser analizada
+ *  \brief 		Verifica si la cadena ingresada es numérica, contempla su signo
+ * \param cadena Cadena de caracteres a ser analizada
  * \return Retorna 1(verdadero) si la cadena es numérica, y si no lo es retorna 0(FALSO)
  *
  */
@@ -69,12 +77,13 @@ static int esNumerica(char* cadena)
 	int i=0;
 	if(cadena!=NULL && strlen(cadena)>0)
 	{
-		if (cadena[0]=='-'||cadena[0]=='+')
-		{
-			i=1;
-		}
+
 		while (cadena[i] != '\0')//puedo usar un for porq tengo todos los elementos tmb
 		{
+			if (cadena[0]=='-'||cadena[0]=='+')
+			{
+				i=1;
+			}
 
 			if (cadena [i]<'0' || cadena[i]>'9')//si el elemento en i sale de los parametros como numero
 			{
@@ -83,29 +92,27 @@ static int esNumerica(char* cadena)
 			}
 			i++;
 		}
+		/*CUANDO QUIERO USAR ESTE CODIGO, ME TIRA ERROR EN LA FIRMA :(
+													 * FIRMA:  static int esNumerica(char* cadena, int len )
+													 * for(i=0; i<len && aCadena[i]!= '\0'; i++)
+													{
+														if (i==0 && (aCadena[i]=='-' || aCadena[i]=='+'))
+														{
+															continue; //vuelve a comenzar el for, se saltea el siguiente if
+														}
+														if(aCadena[i]>'9' || aCadena [i] <'0')
+														{
+															retornoVerdad = 0;
+															break;//sale de la iteracion mas cercana
+														}
+													}*/
 	}
-											/*CUANDO QUIERO USAR ESTE CODIGO, ME TIRA ERROR EN LA FIRMA :(
-											 * FIRMA:  static int esNumerica(char* cadena, int len )
-											 * for(i=0; i<len && aCadena[i]!= '\0'; i++)
-											{
-												if (i==0 && (aCadena[i]=='-' || aCadena[i]=='+'))
-												{
-													continue; //vuelve a comenzar el for, se saltea el siguiente if
-												}
-												if(aCadena[i]>'9' || aCadena [i] <'0')
-												{
-													retornoVerdad = 0;
-													break;//sale de la iteracion mas cercana
-												}
-											}*/
 	return retorno;
 }
 
-////////////***********FUNCIONES DE PRIMERA GENEREACION***********////////////
-/*________Para numero entero______*/
-
+///////////////////////TRANSFORMA A NUMERO
 /**
- *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ numerica (int)
+ *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ numerica, si lo es, la trannsforma  a int
  *  \param pResultado Puntero al espacio de memoria donde se dejará el resultado de la función
  *  \return Retorna 0(EXITO) si se obtiene un numero entero, sino -1(ERROR)
  *  * NOTAS: incluye el uso de: esNumerica para verificar que todos los elementos sean numeros
@@ -129,85 +136,8 @@ static int getInt (int* pResultado)
 	return retorno;
 }
 
-/*________Para numero flotante________*/
-/**
- *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ flotante
- *  \param pResultado Puntero al espacio de memoria donde se dejará el resultado de la función
- *  \return Retorna 0(EXITO) si se obtiene un numero flotante, sino -1(ERROR)
- *
- */
-static int getFloat (float* pResultado)
-{
-	int retorno=-1;
-	char buffer[64];
 
-	if(pResultado != NULL)
-	{
-		if(myGets(buffer, sizeof(buffer))==0 && esFlotante(buffer))
-		{
-			retorno = 0;
-			*pResultado = atof(buffer);
-		}
-	}
-
-
-	return retorno;
-}
-
-
-
-/**
- *  \brief 		Verifica si la cadena ingresada es numérica
- * \param cadena Cadena de caracteres a ser analizada
- * \return Retorna 1(verdadero) si la cadena es flotante, y si no lo es retorna 0(FALSO)
- *
- */
-static int esFlotante(char* cadena)
-{
-	int retorno=1;
-	int i=0;
-	int contadorPuntos=0;
-
-	if(cadena!=NULL && strlen(cadena)>0)
-	{
-		for(i=0; cadena [i] != '\0'; i++)
-		{
-			if(i==0 && (cadena[i]== '-' || cadena[i]== '+'))
-			{
-				continue;
-			}
-			if(cadena [i] < '0' || cadena [i] > '9')
-			{
-				if(cadena[i] == '.' && contadorPuntos ==0)
-				{
-					contadorPuntos++;
-				}
-				else
-				{
-					retorno=0;
-					break;
-				}
-
-			}
-		}
-	}
-	return retorno;
-}
-
-/**
- *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ numerica (int)
- *  \param pResultado Puntero al espacio de memoria donde se dejará el resultado de la función
- *  \return Retorna 0(EXITO) si se obtiene un numero entero, sino -1(ERROR)
- *  * NOTAS: incluye el uso de: esNumerica para verificar que todos los elementos sean numeros
- * 		   					 myGets para obtener datos ingresados por el usuario, de modo seguro, sin desbordar la variable en la que se escribe
- *
- */
-
-
-
-//////////////////////////////////////////////////////////////FUNCIONES NIVEL SUPERIOR intercambio con el usuario
-
-
+//////////////////PIDE UN NUMERO
 /**
  * \brief		Solicita al usuario el ingreso de un número entero, lo valida, lo verifica
  * 				y devuelve el resultado
@@ -246,9 +176,74 @@ int utn_getNumero (int* pNumero, char* pMensaje, char* pMensajeError, char min, 
 }
 
 
+/////////////////////////////////////////////////////////NUMERO FLOTANTE
+/////////////VALIDA QUE ES FLOTANTE
+/**
+ *  \brief 		Verifica si la cadena ingresada es numérica flotante
+ * \param cadena Cadena de caracteres a ser analizada
+ * \return Retorna 1(verdadero) si la cadena es flotante, y si no lo es retorna 0(FALSO)
+ *
+ */
+static int esFlotante(char* cadena)
+{
+	int retorno=1;
+	int i=0;
+	int contadorPuntos=0;
+
+	if(cadena!=NULL && strlen(cadena)>0)
+	{
+		for(i=0; cadena [i] != '\0'; i++)
+		{
+			if(i==0 && (cadena[i]== '-' || cadena[i]== '+'))
+			{
+				continue;
+			}
+			if(cadena [i] < '0' || cadena [i] > '9')
+			{
+				if(cadena[i] == '.' && contadorPuntos ==0)
+				{
+					contadorPuntos++;
+				}
+				else
+				{
+					retorno=0;
+					break;
+				}
+
+			}
+		}
+	}
+	return retorno;
+}
+
+/////////////////////////TRANSFORMA A FLOTANTE
+/**
+ *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ flotante, si lo es, la transforma a float
+ *  \param pResultado Puntero al espacio de memoria donde se dejará el resultado de la función
+ *  \return Retorna 0(EXITO) si se obtiene un numero flotante, sino -1(ERROR)
+ *
+ */
+static int getFloat (float* pResultado)
+{
+	int retorno=-1;
+	char buffer[64];
+
+	if(pResultado != NULL)
+	{
+		if(myGets(buffer, sizeof(buffer))==0 && esFlotante(buffer))
+		{
+			retorno = 0;
+			*pResultado = atof(buffer);
+		}
+	}
+
+
+	return retorno;
+}
+///////////////////////SOLICITA UN FLOTANTE
 /**
  * \brief		Solicita al usuario el ingreso de un número flotante, luego de verificarlo devuelve el resultado
- * \param char pMensaje: puntero a cadena de caracteres con mensaje a imprimir antes de pedirle al usuario datos por consola
+ * * \param char pMensaje: puntero a cadena de caracteres con mensaje a imprimir antes de pedirle al usuario datos por consola
  * \param char pMensajeError: puntero a cadena de caracteres con mensaje de error en el caso de que el dato ingresado no sea válido
  * \param int min:Valor mínimo admitido (inclusive)
  * \param int max: Valor máximo admitido (inclusive)
@@ -280,37 +275,297 @@ int utn_getFlotante (float* pNumFloat, char* pMensaje, char* pMensajeError, floa
 	return retornoFuncion;
 }
 
-/*__________________________-SIRVE COMO PLANTILLA PARA OTRAS FUNCIONES, ADAPTANDO LOS MENSAJES-______________*/
-/*---------float---------*/
+
+
+/////////////////////////////////////////////////////////ALFABETICA
+/////////////VALIDA QUE SON LETRAS
 /**
- * \brief	imprime un array de flotantes
- * \param float pArray Puntero al array
- * \param int len Define el tamaño del array
- * \return Retorna 0 (EXITO) y -1(ERRORI
+ *  \brief 		Verifica si la cadena ingresada son letras
+ * \param cadena Cadena de caracteres a ser analizada
+ * \return Retorna 1(verdadero) si la cadena es flotante, y si no lo es retorna 0(FALSO)
  *
  */
-int utn_cargarArrayFlotantesAleatorio (float* pArray, int len)
+static int esLetra(char* cadena)
+{
+	int retorno=1;
+	int i=0;
+
+	if(cadena!=NULL && strlen(cadena)>0)
+	{
+		for(i=0; cadena [i] != '\0'; i++)
+		{
+			printf("no es letra %s",*cadena);
+			if(cadena[i]!= ' ' && (cadena[i] < 'a' || cadena[i] > 'z')&& (cadena[i] < 'A' || cadena[i] > 'Z'))
+				{
+					printf("no es letra %s",*cadena);
+					retorno = 0;
+				}
+		}
+	}
+	return retorno;
+}
+
+/////////////VALIDA QUE SON LETRAS y NUmeros
+/**
+ *  \brief 		Verifica si la cadena ingresada son letras y numeros
+ * \param cadena Cadena de caracteres a ser analizada
+ * \return Retorna 1(verdadero) si la cadena es flotante, y si no lo es retorna 0(FALSO)
+ *
+ */
+static int esAlfaNumerico(char* cadena)
+{
+	int retorno=1;
+	int i=0;
+
+	if(cadena!=NULL && strlen(cadena)>0)
+	{
+		for(i=0; cadena [i] != '\0'; i++)
+		{
+			if(cadena[i]!= ' ' && (cadena[i] < 'a' || cadena[i] > 'z')&& (cadena[i] < 'A' || cadena[i] > 'Z') && (cadena[i] < '0' || cadena[i] > '9'))
+				retorno = 0;
+		}
+	}
+	return retorno;
+}
+
+/////////////VALIDA QUE SON numers y 1 '-'
+/**
+ *  \brief 		Verifica si la cadena ingresada cuenta con caracteristicas de telefono
+ * \param cadena Cadena de caracteres a ser analizada
+ * \return Retorna 1(verdadero) si la cadena es flotante, y si no lo es retorna 0(FALSO)
+ *
+ */
+static int esTelefono(char* cadena)
+{
+	int retorno=1;
+	int i=0;
+	int contadorGuion=0;
+
+	if(cadena!=NULL && strlen(cadena)>0)
+	{
+		for(i=0; cadena [i] != '\0'; i++)
+		{
+			if((cadena[i]!= ' ') && (cadena[i] != '-') && (cadena[i] < '0' || cadena[i] > '9'))
+				retorno = 0;
+			if(cadena[i]!= '-')
+				contadorGuion++;
+		}
+		if(contadorGuion==1)
+			retorno = 1;
+	}
+	return retorno;
+}
+
+/////////////VALIDA QUE SON numers y 2 '-'
+/**
+ *  \brief 		Verifica si la cadena ingresada cuenta con caracteristicas de telefono
+ * \param cadena Cadena de caracteres a ser analizada
+ * \return Retorna 1(verdadero) si la cadena es flotante, y si no lo es retorna 0(FALSO)
+ *
+ */
+static int esCelular(char* cadena)
+{
+	int retorno=1;
+	int i=0;
+	int contadorGuion=0;
+
+	if(cadena!=NULL && strlen(cadena)>0)
+	{
+		for(i=0; cadena [i] != '\0'; i++)
+		{
+			if((cadena[i]!= ' ') && (cadena[i] != '-') && (cadena[i] < '0' || cadena[i] > '9'))
+				retorno = 0;
+			if(cadena[i]!= '-')
+				contadorGuion++;
+		}
+		if(contadorGuion==2)
+			retorno = 1;
+	}
+	return retorno;
+}
+
+/////////////////////////COPIA LETRAS / caracteres
+/**
+ *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ de letras, si lo es, lo copia para pasarlo como resultado
+ *  \param pResultado Puntero al espacio de memoria donde se dejará el resultado de la función
+ *  \return Retorna 0(EXITO) si se obtiene un numero flotante, sino -1(ERROR)
+ *
+ */
+static int getChar (char* pResultado)
+{
+	int retorno=-1;
+	char buffer[2096];
+
+	if(pResultado != NULL)
+	{
+		if(myGets(buffer, sizeof(buffer))==0 && esLetra(buffer))
+		{
+			retorno = 0;
+			strncpy(pResultado, buffer, sizeof(pResultado));
+			printf("puntero: %s", pResultado);
+			printf("puntero: %s", buffer);
+
+		}
+	}
+	return retorno;
+}
+
+/**
+ *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ de LETRAS Y NUMEROS, si lo es, lo copia para pasarlo como resultado
+ *  \param pResultado Puntero al espacio de memoria donde se dejará el resultado de la función
+ *  \return Retorna 0(EXITO) si se obtiene un numero flotante, sino -1(ERROR)
+ *
+ */
+static int getCharInt (char* pResultado)
+{
+	int retorno=-1;
+	char buffer[64];
+
+	if(pResultado != NULL)
+	{
+		if(myGets(buffer, sizeof(buffer))==0 && esAlfaNumerico(buffer))
+		{
+			retorno = 0;
+			strcpy(*pResultado, buffer);
+		}
+	}
+	return retorno;
+}
+
+/**
+ *  \brief 		​ Verifica​ ​ si​ ​ la​ ​ cadena​ ingresada​ ​ es​ ​ de NUMEROS y 1 gui, si lo es, lo copia para pasarlo como resultado
+ *  \param pResultado Puntero al espacio de memoria donde se dejará el resultado de la función
+ *  \return Retorna 0(EXITO) si se obtiene un numero flotante, sino -1(ERROR)
+ *
+ */
+static int getTelefono (char* pResultado)
+{
+	int retorno=-1;
+	char buffer[64];
+
+	if(pResultado != NULL)
+	{
+		if(myGets(buffer, sizeof(buffer))==0 && esTelefono(buffer))
+		{
+			retorno = 0;
+			strcpy(*pResultado, buffer);
+		}
+	}
+	return retorno;
+}
+
+
+///////////////////////SOLICITA CARACTERES
+/**
+ * \brief		Solicita al usuario el ingreso de letras, luego de verificarlo devuelve el resultado
+ * * \param char pMensaje: puntero a cadena de caracteres con mensaje a imprimir antes de pedirle al usuario datos por consola
+ * \param char pMensajeError: puntero a cadena de caracteres con mensaje de error en el caso de que el dato ingresado no sea válido
+ * \param int min:Valor mínimo admitido (inclusive)
+ * \param int max: Valor máximo admitido (inclusive)
+ * \param int reintentos: cantidad de veces que se le volverá a pedir al usuario que ingrese un dato en caso de error
+ * \param retorna 0 si se obtuvo el numero, sino -1
+ *
+ */
+int utn_getTexto (char* pCaracter, char* pMensaje, char* pMensajeError, int len, int reintentos)
 {
 	int retornoFuncion = -1;
-	int respuestaSolicitud;
-	int posicion;
-	float dato;
-	if (pArray != NULL && len >0)
+	char bufferChar[4096];
+	if (pCaracter != NULL && pMensaje != NULL && pMensajeError != NULL && len >0 && reintentos >= 0 )
 	{
-		respuestaSolicitud=utn_getNumero(&posicion, "\nmensaje que solicita ingreso de dato", "\nno pertenece al rango establecido[1,31]", 1, len, 2);//la posición más grande del array no puede ser superior al límite del array
-		if (!respuestaSolicitud)//si es == 0 (es existoso)
+		do
 		{
-			//estoy en condiciones de pedir el dato a ingresar en posicion
-			respuestaSolicitud = utn_getFlotante(&dato, "\ningrese el dato requerido", "\nno pertenece al rango establecido [-50,50]", -50, 50, 2);
-			if (!respuestaSolicitud) //colocamos nuevo valor a respuestaSolicitud, ahora trabajamos con él
-			{
-				//en la posición del array ANTERIOR a la definida por el usuario [posicion], cargo el dato ingresado
-				pArray[posicion-1] = dato;
-			}
-		}
+			printf ("%s", pMensaje);
+			__fpurge(stdin);
+
+			//if (getChar(&bufferChar)==0 && bufferChar<= len)
+			//{
+				//strncpy(*pCaracter, bufferChar,sizeof(pCaracter));
+				//retornoFuncion =0;
+				//break;
+			//}
+			printf ("%s", pMensajeError);
+			reintentos --;
+		}while(reintentos >=0);
 	}
 	return retornoFuncion;
 }
+
+/**
+ * \brief		Solicita al usuario el ingreso de letras y numeros, luego de verificarlo devuelve el resultado
+ * * \param char pMensaje: puntero a cadena de caracteres con mensaje a imprimir antes de pedirle al usuario datos por consola
+ * \param char pMensajeError: puntero a cadena de caracteres con mensaje de error en el caso de que el dato ingresado no sea válido
+ * \param int min:Valor mínimo admitido (inclusive)
+ * \param int max: Valor máximo admitido (inclusive)
+ * \param int reintentos: cantidad de veces que se le volverá a pedir al usuario que ingrese un dato en caso de error
+ * \param retorna 0 si se obtuvo el numero, sino -1
+ *
+ */
+int utn_getAlfanumerica (char* pCaracter, char* pMensaje, char* pMensajeError, int len, int reintentos)
+{
+	int retornoFuncion = -1;
+	char bufferChar;
+	if (pCaracter != NULL && pMensaje != NULL && pMensajeError != NULL && len >0 && reintentos >= 0 )
+	{
+		do
+		{
+			printf ("%s", pMensaje);
+			__fpurge(stdin);
+
+			if (getCharInt(&bufferChar)==0 && bufferChar<= len)
+			{
+				strcpy(*pCaracter, bufferChar);
+				retornoFuncion =0;
+				break;
+			}
+			printf ("%s", pMensajeError);
+			reintentos --;
+		}while(reintentos >=0);
+	}
+	return retornoFuncion;
+}
+
+/**
+ * \brief		Solicita al usuario el ingreso de letras y numeros, luego de verificarlo devuelve el resultado
+ * * \param char pMensaje: puntero a cadena de caracteres con mensaje a imprimir antes de pedirle al usuario datos por consola
+ * \param char pMensajeError: puntero a cadena de caracteres con mensaje de error en el caso de que el dato ingresado no sea válido
+ * \param int min:Valor mínimo admitido (inclusive)
+ * \param int max: Valor máximo admitido (inclusive)
+ * \param int reintentos: cantidad de veces que se le volverá a pedir al usuario que ingrese un dato en caso de error
+ * \param retorna 0 si se obtuvo el numero, sino -1
+ *
+ */
+int utn_getTelefono (char* pCaracter, char* pMensaje, char* pMensajeError, int len, int reintentos)
+{
+	int retornoFuncion = -1;
+	char bufferChar;
+	if (pCaracter != NULL && pMensaje != NULL && pMensajeError != NULL && len >0 && reintentos >= 0 )
+	{
+		do
+		{
+			printf ("%s", pMensaje);
+			__fpurge(stdin);
+
+			if (getCharInt(&bufferChar)==0 && bufferChar<= len)
+			{
+				strcpy(*pCaracter, bufferChar);
+				retornoFuncion =0;
+				break;
+			}
+			printf ("%s", pMensajeError);
+			reintentos --;
+		}while(reintentos >=0);
+	}
+	return retornoFuncion;
+}
+
+
+
+
+
+
+
+
+
 
 
 /////////////////////////////////////////////////////////Funciones para array

@@ -19,6 +19,9 @@ int myGets(char* pCadena, int len);
 int utn_getNumero (int* pNumero, char* pMensaje, char* pMensajeError, char min, char max, int reintentos);
 int utn_cargarArrayFlotantesAleatorio (float* pArray, int len);
 int utn_getFlotante (float* pNumFloat, char* pMensaje, char* pMensajeError, float min, float max, int reintentos);
+int utn_getTexto (char* pCaracter, char* pMensaje, char* pMensajeError, int len, int reintentos);
+
+int utn_getPrecio (float* pNumFloat, char* pMensaje, char* pMensajeError, float min, float max, int reintentos);
 int utn_imprimirArrayFlotante(float* pArray, int len);
 int utn_initArrayFlotante(float* pArray, int len, float valorInicial);
 int utn_buscarMinimoArrayInt (int* pResultado, int array[],int limite);
