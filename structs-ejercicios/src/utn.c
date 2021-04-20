@@ -85,7 +85,7 @@ static int esNumerica(char* cadena)
 		}
 	}
 											/*CUANDO QUIERO USAR ESTE CODIGO, ME TIRA ERROR EN LA FIRMA :(
-											 * FIRMA:  static int esNumerica(char* cadena, int len )
+											 * FIRMA:  static int esNumerica(char* cadena, int len)
 											 * for(i=0; i<len && aCadena[i]!= '\0'; i++)
 											{
 												if (i==0 && (aCadena[i]=='-' || aCadena[i]=='+'))

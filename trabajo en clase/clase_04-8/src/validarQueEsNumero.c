@@ -17,11 +17,10 @@
 int main(void)
 {
 	int palabras;
-	char texto[]="las medidas de aislamiento bla bla";
-
-	if(utn_contarPalabras(&palabras, texto, sizeof(texto))==0)
+	//char texto[]="las medidas de aislamiento bla bla";
+	if(utn_getNumero(&palabras, "numero", "error", 0, 10, 1)==0)
 	{
-		printf("el txt contiene: %d palabras", palabras);
+		printf("palabras: %d", palabras);
 	}
 
 }
